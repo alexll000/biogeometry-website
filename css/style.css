@@ -261,7 +261,7 @@ button{font-family:inherit;border:none;background:none;cursor:pointer}
 
 /* Hero 右上角评估报告入口 */
 .hero-report-card{
-  position:absolute;top:20px;right:28px;z-index:5;
+  position:absolute;top:calc(var(--nav-h) + 24px);right:28px;z-index:5;
   display:flex;align-items:center;gap:12px;
   padding:14px 20px 14px 16px;
   background:rgba(255,255,255,.92);backdrop-filter:blur(16px);
