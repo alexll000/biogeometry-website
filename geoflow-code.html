@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GeoFlow Code — 蛋白质设计编程语言 | 百奥几何 BioGeometry</title>
+<meta name="description" content="GeoFlow V4 发布:提出 GeoFlow Code 蛋白质设计编程语言。公开抗原-抗体结构预测基准合格率 70% 业界领先,亲和力从 nM 进入 pM 量级,覆盖蛋白、抗体、环肽三类分子模态。">
+<meta property="og:title" content="GeoFlow Code — 蛋白质设计编程语言 | 百奥几何 BioGeometry">
+<meta property="og:description" content="GeoFlow V4 发布:提出 GeoFlow Code 蛋白质设计编程语言。公开抗原-抗体结构预测基准合格率 70% 业界领先,亲和力从 nM 进入 pM 量级,覆盖蛋白、抗体、环肽三类分子模态。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/hero-protein.png">
+<link rel="icon" href="assets/logo/logo400.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* GeoFlow Code 专题页 — 深色发布会风格 */
+  .gfc-hero{
+    position:relative;min-height:92svh;display:flex;align-items:center;overflow:hidden;
+    padding:calc(var(--nav-h) + 100px) 0 90px;background:var(--grad-dark);color:#fff;
+  }
+  .gfc-hero::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(900px 500px at 80% 10%,rgba(51,188,143,.2),transparent 60%),
+      radial-gradient(700px 500px at 5% 95%,rgba(159,203,59,.12),transparent 55%);
+  }
+  .gfc-hero .grid-deco{opacity:.12}
+  .gfc-badge{
+    display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border-radius:100px;
+    border:1px solid rgba(143,227,220,.35);background:rgba(143,227,220,.08);
+    font-family:var(--font-disp);font-size:13px;font-weight:700;letter-spacing:.18em;color:var(--t300);
+    text-transform:uppercase;margin-bottom:28px;
+  }
+  .gfc-hero h1{
+    font-family:var(--font-disp);font-weight:800;font-size:clamp(44px,6.4vw,84px);line-height:1.06;letter-spacing:-.02em;
+  }
+  .gfc-hero h1 .code-grad{background:var(--grad-code);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .gfc-hero .en-sub{
+    font-family:var(--font-mono);font-size:clamp(13px,1.4vw,16px);color:rgba(255,255,255,.55);margin-top:18px;letter-spacing:.04em;
+  }
+  .gfc-hero .slogan{font-family:var(--font-disp);font-size:clamp(21px,2.6vw,30px);font-weight:700;color:#fff;margin-top:32px;letter-spacing:.01em}
+  .gfc-hero .slogan em{font-style:normal;background:var(--grad-code);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .gfc-hero .cn-sub{font-size:clamp(15px,1.7vw,19px);font-weight:400;color:rgba(255,255,255,.66);margin-top:16px;max-width:680px;line-height:1.75}
+  .gfc-hero .hero-actions{margin-top:38px}
+  .gfc-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:20px;overflow:hidden;margin-top:56px;backdrop-filter:blur(8px)}
+  .gfc-metrics .m{background:rgba(4,36,29,.6);padding:26px 24px}
+  .gfc-metrics .m .n{font-family:var(--font-disp);font-weight:800;font-size:clamp(24px,2.4vw,34px);color:#fff;line-height:1.15}
+  .gfc-metrics .m .n em{font-style:normal;color:var(--t300)}
+  .gfc-metrics .m .d{font-size:12.5px;color:rgba(255,255,255,.55);margin-top:6px;line-height:1.6}
+  .bench-visual{display:flex;align-items:flex-end;gap:34px;height:280px;margin-top:20px}
+  .bench-col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:14px;height:100%}
+  .bench-col .b-label{font-size:13.5px;color:var(--ink-2);font-weight:600;text-align:center}
+  .bench-col .b-bar{border-radius:14px 14px 6px 6px;position:relative;display:flex;align-items:flex-start;justify-content:center;transition:height 1.4s cubic-bezier(.22,.61,.36,1)}
+  .bench-col .b-val{font-family:var(--font-disp);font-weight:800;font-size:clamp(22px,2.4vw,32px);padding-top:14px}
+  .pain-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:30px 28px;backdrop-filter:blur(8px)}
+  .pain-card .p-num{font-family:var(--font-mono);color:var(--t300);font-size:13px;letter-spacing:.15em;margin-bottom:14px}
+  .pain-card h3{color:#fff;font-size:18px;margin-bottom:10px}
+  .pain-card p{color:rgba(255,255,255,.62);font-size:14px}
+  .agent-steps{display:flex;flex-direction:column;gap:0;position:relative;margin-top:10px}
+  .agent-step{display:grid;grid-template-columns:56px 1fr;gap:22px;position:relative;padding-bottom:38px}
+  .agent-step::before{content:"";position:absolute;left:27px;top:56px;bottom:0;width:2px;background:linear-gradient(180deg,rgba(143,227,220,.4),rgba(143,227,220,.08))}
+  .agent-step:last-child::before{display:none}
+  .agent-step .as-dot{width:56px;height:56px;border-radius:18px;background:rgba(143,227,220,.1);border:1px solid rgba(143,227,220,.35);display:grid;place-items:center;font-family:var(--font-disp);font-weight:800;color:var(--t300);font-size:18px}
+  .agent-step h4{color:#fff;font-size:17px;margin-bottom:6px;padding-top:6px}
+  .agent-step p{color:rgba(255,255,255,.62);font-size:14px;max-width:520px}
+  .landscape{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .landscape .ls-item{padding:22px 24px;border-radius:14px;background:var(--white);border:1px solid var(--line)}
+  .landscape .ls-item b{font-size:15px;display:block;margin-bottom:6px}
+  .landscape .ls-item p{font-size:13px;color:var(--ink-2)}
+  .landscape .ls-item .ls-tag{font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--ink-3)}
+  @media(max-width:900px){.landscape{grid-template-columns:1fr}}
+
+  /* 暗色发布页常驻导航 — 对标 Latent / Chai 发布会页 */
+  .nav.nav-dark{background:rgba(4,36,29,.55);backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 1px 0 rgba(143,227,220,.12)}
+  .nav.nav-dark.scrolled{background:rgba(4,36,29,.85);box-shadow:0 1px 0 rgba(143,227,220,.14),0 12px 40px rgba(0,0,0,.28)}
+  .nav.nav-dark .nav-link{color:rgba(255,255,255,.78)}
+  .nav.nav-dark .nav-link:hover,.nav.nav-dark .nav-item.active>.nav-link{color:var(--t300);background:rgba(143,227,220,.1)}
+  .nav.nav-dark .nav-lang{color:rgba(255,255,255,.65);border-color:rgba(143,227,220,.3)}
+  .nav.nav-dark .nav-lang:hover{color:var(--t300);border-color:var(--t300)}
+  .nav.nav-dark .dropdown{background:rgba(255,255,255,.98)}
+</style>
+</head>
+<body class="has-announce">
+
+<div class="announce">
+  <span class="a-tag">NEW · 2026.08</span>
+  <span class="a-desc">GeoFlow V4 技术报告现已发布</span>
+  <a href="science.html#reports">阅读技术报告 →</a>
+</div>
+
+<header class="nav nav-dark">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/logo/logo-white.png" alt="百奥几何 BioGeometry"></a>
+    <nav class="nav-menu">
+      <div class="nav-item has-sub active">
+        <a href="technology.html" class="nav-link">技术平台 <span class="caret"></span></a>
+        <div class="dropdown">
+          <a href="technology.html"><b>GeoFlow 基础模型</b><span>结构预测 × 从头设计的通用全原子模型</span></a>
+          <a href="geoflow-code.html"><b>GeoFlow Code</b><span>蛋白质设计编程语言 · V4 全新发布</span></a>
+          <a href="technology.html#loop"><b>干湿闭环体系</b><span>设计—验证—学习—再设计</span></a>
+          <a href="technology.html#infra"><b>数据与算力底座</b><span>800 万+ 结构数据 · 300+ GPU</span></a>
+        </div>
+      </div>
+      <div class="nav-item has-sub">
+        <a href="solutions.html" class="nav-link">解决方案 <span class="caret"></span></a>
+        <div class="dropdown">
+          <a href="solutions.html#bio"><b>生物医药</b><span>抗体 · 环肽 · 小蛋白从头设计</span></a>
+          <a href="solutions.html#synbio"><b>合成生物</b><span>GeoEnzyme 智能酶工程</span></a>
+          <a href="solutions.html#cases"><b>项目验证</b><span>经湿实验验证的代表性案例</span></a>
+          <a href="solutions.html#process"><b>合作流程</b><span>从需求评估到候选交付</span></a>
+        </div>
+      </div>
+      <div class="nav-item"><a href="pipeline.html" class="nav-link">管线与合作</a></div>
+      <div class="nav-item"><a href="science.html" class="nav-link">科学研究</a></div>
+      <div class="nav-item"><a href="news.html" class="nav-link">新闻动态</a></div>
+      <div class="nav-item has-sub">
+        <a href="about.html" class="nav-link">关于我们 <span class="caret"></span></a>
+        <div class="dropdown">
+          <a href="about.html"><b>公司介绍</b><span>使命 · 历程 · 核心团队</span></a>
+          <a href="about.html#investors"><b>投资方</b><span>顶级机构背书的战略融资</span></a>
+          <a href="careers.html"><b>加入我们</b><span>与图灵奖得主团队共创未来</span></a>
+          <a href="contact.html"><b>联系我们</b><span>商务合作与媒体垂询</span></a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-cta">
+      <span class="nav-lang">中 / EN</span>
+      <a href="https://prot.design" target="_blank" rel="noopener" class="btn btn-primary btn-nav">体验 GeoFlow <span class="arr">→</span></a>
+    </div>
+    <button class="nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="gfc-hero">
+  <div class="grid-deco"></div>
+  <div class="container" style="position:relative;z-index:2">
+    <span class="gfc-badge">GeoFlow V4 · 2026.08 全新发布</span>
+    <h1>GeoFlow <span class="code-grad">Code</span></h1>
+    <div class="en-sub">A Programming Language for Generative Biology</div>
+    <p class="slogan">让复杂的蛋白质设计,变成<em>可执行</em>的过程。</p>
+    <p class="cn-sub">蛋白质设计编程语言 —— 从「可编程」到「无需编程」:以自然语言描述设计意图,复杂需求即被自动翻译、组装并执行,直达可用于湿实验验证的候选分子。</p>
+    <div class="hero-actions">
+      <a href="science.html#reports" class="btn btn-primary">阅读技术报告 <span class="arr">→</span></a>
+      <a href="https://prot.design" target="_blank" rel="noopener" class="btn btn-outline-light">在平台体验 GeoFlow</a>
+    </div>
+    <div class="gfc-metrics">
+      <div class="m"><div class="n"><em>70%</em></div><div class="d">公开抗原-抗体结构预测基准合格率<br>业界领先(上一代约 45–50%) *</div></div>
+      <div class="m"><div class="n">20%<em>→30%</em></div><div class="d">蛋白质设计任务靶点命中率<br>内部项目统计,较上一代显著提升 *</div></div>
+      <div class="m"><div class="n">nM<em>→pM</em></div><div class="d">从头设计分子亲和力进入皮摩尔量级<br>达到成药标准 *</div></div>
+      <div class="m"><div class="n"><em>3</em> 类模态</div><div class="d">覆盖蛋白 · 抗体 · 环肽<br>从头设计</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 行业坐标 -->
+<section class="section" style="padding-bottom:70px">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Landscape · 行业坐标</span>
+      <h2 class="h-title">从头设计,正在成为全球前沿共识</h2>
+      <p class="lead">2025 年以来,全球多家前沿机构相继验证从头设计路径:Chai-2 报告零样本抗体设计、Latent-X 完成湿实验验证、Nabla 发布 JAM-2「从计算机直接获得类药抗体」。GeoFlow V4 以 70% 的公开基准合格率与 pM 级亲和力,站上这一全球竞赛的第一梯队。</p>
+    </div>
+    <div class="landscape reveal">
+      <div class="ls-item">
+        <span class="ls-tag">国际前沿 · 2025–2026</span>
+        <b>Chai-2 / Latent-X / JAM-2</b>
+        <p>零样本从头设计抗体相继被验证,命中率进入两位数百分比时代。</p>
+      </div>
+      <div class="ls-item" style="border-color:rgba(22,160,121,.4);box-shadow:var(--shadow-glow)">
+        <span class="ls-tag" style="color:var(--g600)">百奥几何 · 2026.08</span>
+        <b class="text-grad">GeoFlow V4 · GeoFlow Code</b>
+        <p>公开基准 70% 合格率;pM 级亲和力;蛋白/抗体/环肽三模态;编程语言级复杂需求表达。</p>
+      </div>
+      <div class="ls-item">
+        <span class="ls-tag">范式意义</span>
+        <b>从「筛选」到「设计」</b>
+        <p>竞争的焦点从「能否结合」转向「能否按复杂需求设计出可成药的分子」。</p>
+      </div>
+    </div>
+    <div class="footnote reveal" style="margin-top:20px">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+      <span>* 本页涉及的 GeoFlow V4 指标均出自内部评测与项目统计,最终口径以《GeoFlow V4 技术报告》为准;行业信息来自各公司公开发布材料。</span>
+    </div>
+  </div>
+</section>
+
+<!-- 痛点 -->
+<section class="section section-dark" style="padding-top:90px">
+  <span class="section-num">01</span>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Problem · 为什么需要一门「语言」</span>
+      <h2 class="h-title">上一代蛋白质生成模型的三道坎</h2>
+    </div>
+    <div class="grid-3">
+      <div class="pain-card reveal">
+        <div class="p-num">/ 01</div>
+        <h3>只能设计 Binder</h3>
+        <p>如同一个只能「补全视频」的生成模型 —— 能产出一个结合靶点的分子,却无法自定义、无法做更精细的修改。</p>
+      </div>
+      <div class="pain-card reveal reveal-d1">
+        <div class="p-num">/ 02</div>
+        <h3>亲和力不足,或不可成药</h3>
+        <p>生成的分子结合力弱,或表达量低、非特异性高、稳定性差 —— 能结合,却难以走向成药。</p>
+      </div>
+      <div class="pain-card reveal reveal-d2">
+        <div class="p-num">/ 03</div>
+        <h3>复杂需求无法设计</h3>
+        <p>「结合 A 不结合 B」「只在特定微环境激活」—— 真实研发场景的复杂需求,难以转化为模型输入。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 基石性能 -->
+<section class="section">
+  <span class="section-num">02</span>
+  <div class="container">
+    <div class="grid-2" style="align-items:center">
+      <div class="reveal">
+        <span class="eyebrow">Foundation · 基石性能</span>
+        <h2 class="h-title">第一眼指标:<br>公开基准合格率 45–50 → 70</h2>
+        <p class="lead" style="margin-top:18px">基础模型在公开抗原-抗体结构预测基准上获得最佳性能。上一代 GeoFlow V3 与 AlphaFold3 同处约 50% 水平,市面主流能力集中在 65–68 区间 —— GeoFlow V4 达到 <b class="text-grad">70%</b>,为当前公开评测的领先水平。</p>
+        <ul class="check-list" style="margin-top:26px">
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>设计成功率(干实验评价)较开源模型与上一代提升 2 倍以上,个别靶点达 4–6 倍</span></li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>同等算力获得更多优质分子 —— 直接转化为湿实验平均结合率约翻倍(18.7% → 35%) *</span></li>
+        </ul>
+      </div>
+      <div class="reveal reveal-d1">
+        <div class="card" style="padding:36px 34px">
+          <div class="bench-visual">
+            <div class="bench-col">
+              <div class="b-bar" style="height:46%;background:var(--paper-2);border:1px solid var(--line)"><span class="b-val" style="color:var(--ink-3)">~50</span></div>
+              <div class="b-label">上一代<br>GeoFlow V3 / AF3</div>
+            </div>
+            <div class="bench-col">
+              <div class="b-bar" style="height:66%;background:linear-gradient(180deg,var(--g200),var(--g300))"><span class="b-val" style="color:var(--g700)">65–68</span></div>
+              <div class="b-label">市面主流<br>能力区间</div>
+            </div>
+            <div class="bench-col">
+              <div class="b-bar" style="height:92%;background:var(--grad-brand);box-shadow:var(--shadow-glow)"><span class="b-val" style="color:#fff">70</span></div>
+              <div class="b-label" style="color:var(--g600);font-weight:700">GeoFlow V4<br>业界领先</div>
+            </div>
+          </div>
+        </div>
+        <!-- 生产规格(后期执行):上线前以技术报告终稿图表替换(DockQ/合格率曲线、与 AF3/Chai-2 同台对比)。 -->
+        <div class="chart-frame" style="margin-top:20px">
+          <svg viewBox="0 0 760 210" width="100%" role="img" aria-label="GeoFlow V3 到 V4 代际跃升对比" style="display:block">
+            <text x="10" y="20" font-size="13" font-weight="800" fill="#063B30">V3 → V4 代际跃升</text>
+            <text x="10" y="38" font-size="10.5" fill="#7A8A84">三项核心指标(内部口径,以技术报告为准)</text>
+            <!-- metric 1 -->
+            <g>
+              <text x="10" y="72" font-size="12" fill="#43554E" font-weight="600">抗原-抗体对接合格率 (%)</text>
+              <rect x="240" y="58" width="240" height="16" rx="8" fill="#DCE9E2"/><rect x="240" y="58" width="336" height="16" rx="8" fill="url(#hitg2)"/>
+              <text x="486" y="71" font-size="11" fill="#7A8A84">50</text><text x="582" y="71" font-size="12" font-weight="800" fill="#0E7A63">70</text>
+            </g>
+            <!-- metric 2 -->
+            <g>
+              <text x="10" y="122" font-size="12" fill="#43554E" font-weight="600">蛋白质设计靶点命中率 (%)</text>
+              <rect x="240" y="108" width="150" height="16" rx="8" fill="#DCE9E2"/><rect x="240" y="108" width="225" height="16" rx="8" fill="url(#hitg2)"/>
+              <text x="396" y="121" font-size="11" fill="#7A8A84">20</text><text x="471" y="121" font-size="12" font-weight="800" fill="#0E7A63">30</text>
+            </g>
+            <!-- metric 3 -->
+            <g>
+              <text x="10" y="172" font-size="12" fill="#43554E" font-weight="600">平均结合率 (%)</text>
+              <rect x="240" y="158" width="140" height="16" rx="8" fill="#DCE9E2"/><rect x="240" y="158" width="263" height="16" rx="8" fill="url(#hitg2)"/>
+              <text x="386" y="171" font-size="11" fill="#7A8A84">18.7</text><text x="509" y="171" font-size="12" font-weight="800" fill="#0E7A63">35</text>
+            </g>
+            <defs><linearGradient id="hitg2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#16A079"/><stop offset="1" stop-color="#9FCB3B"/></linearGradient></defs>
+            <g font-size="10.5" fill="#7A8A84"><rect x="240" y="192" width="10" height="10" rx="2" fill="#DCE9E2"/><text x="256" y="201">V3</text><rect x="300" y="192" width="10" height="10" rx="2" fill="#16A079"/><text x="316" y="201">V4</text></g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 核心概念 -->
+<section class="section section-dark">
+  <span class="section-num">03</span>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Concept · 核心创新</span>
+      <h2 class="h-title">把蛋白质设计,抽象成一门语言</h2>
+      <p class="lead">生成、评估、优化 —— 这些曾经需要人工搭建的固定流程,如今被抽象为 GeoFlow Code 的基本算子。模型学会这门语言后,即可像积木一样自由组装,自主完成复杂设计任务。</p>
+    </div>
+
+    <!-- 生产规格(后期执行):技术报告终稿主图由研发团队产出,构图保持「算子→组装流程→执行轨迹」三段式。 -->
+    <div class="chart-frame-dark reveal" style="margin-bottom:48px">
+      <svg viewBox="0 0 780 290" width="100%" role="img" aria-label="GeoFlow Code 算子库与组装示意图" style="display:block">
+        <defs>
+          <marker id="arr-w" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="rgba(255,255,255,.45)"/></marker>
+          <linearGradient id="shipg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#16A079"/><stop offset="1" stop-color="#9FCB3B"/></linearGradient>
+        </defs>
+        <text x="24" y="26" font-size="14" font-weight="800" fill="#fff">GeoFlow Code · 算子组装与自主执行</text>
+        <text x="24" y="44" font-size="10.5" fill="rgba(255,255,255,.5)">基本算子像积木一样被组装为完整设计流程,由模型自主执行</text>
+
+        <!-- 左:基本算子 -->
+        <text x="24" y="78" font-size="10.5" letter-spacing="2" fill="rgba(255,255,255,.45)">基本算子 · OPERATORS</text>
+        <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12.5">
+          <rect x="24" y="90" width="128" height="34" rx="9" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.18)"/><text x="46" y="111" fill="#fff">generate</text>
+          <rect x="24" y="134" width="128" height="34" rx="9" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.18)"/><text x="46" y="155" fill="#fff">evaluate</text>
+          <rect x="24" y="178" width="128" height="34" rx="9" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.18)"/><text x="46" y="199" fill="#fff">optimize</text>
+          <rect x="24" y="222" width="128" height="34" rx="9" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.18)"/><text x="52" y="243" fill="#fff">select</text>
+        </g>
+        <path d="M160 173 H196" stroke="rgba(255,255,255,.4)" stroke-width="1.5" marker-end="url(#arr-w)"/>
+
+        <!-- 中:组装的设计流程 -->
+        <text x="212" y="78" font-size="10.5" letter-spacing="2" fill="rgba(255,255,255,.45)">组装的设计流程 · ASSEMBLED FLOW</text>
+        <g font-size="12.5">
+          <rect x="212" y="90" width="170" height="28" rx="8" fill="rgba(51,188,143,.14)" stroke="rgba(51,188,143,.45)"/><text x="297" y="108" text-anchor="middle" fill="#D7F2E7">意图理解</text>
+          <path d="M297 118 V126" stroke="rgba(255,255,255,.4)" stroke-width="1.3" marker-end="url(#arr-w)"/>
+          <rect x="212" y="130" width="170" height="28" rx="8" fill="rgba(51,188,143,.14)" stroke="rgba(51,188,143,.45)"/><text x="297" y="148" text-anchor="middle" fill="#D7F2E7">表位定位</text>
+          <path d="M297 158 V166" stroke="rgba(255,255,255,.4)" stroke-width="1.3" marker-end="url(#arr-w)"/>
+          <rect x="212" y="170" width="170" height="28" rx="8" fill="rgba(51,188,143,.14)" stroke="rgba(51,188,143,.45)"/><text x="297" y="188" text-anchor="middle" fill="#D7F2E7">流程组装</text>
+          <path d="M297 198 V206" stroke="rgba(255,255,255,.4)" stroke-width="1.3" marker-end="url(#arr-w)"/>
+          <rect x="212" y="210" width="170" height="28" rx="8" fill="rgba(51,188,143,.14)" stroke="rgba(51,188,143,.45)"/><text x="297" y="228" text-anchor="middle" fill="#D7F2E7">自动执行</text>
+          <path d="M297 238 V246" stroke="rgba(255,255,255,.4)" stroke-width="1.3" marker-end="url(#arr-w)"/>
+          <rect x="212" y="250" width="170" height="28" rx="8" fill="url(#shipg)"/><text x="297" y="268" text-anchor="middle" fill="#fff" font-weight="700">分子交付</text>
+        </g>
+        <path d="M390 173 H428" stroke="rgba(255,255,255,.4)" stroke-width="1.5" marker-end="url(#arr-w)"/>
+
+        <!-- 右:执行轨迹 -->
+        <text x="444" y="78" font-size="10.5" letter-spacing="2" fill="rgba(255,255,255,.45)">执行轨迹 · TRACE</text>
+        <rect x="444" y="90" width="312" height="188" rx="12" fill="rgba(0,0,0,.38)" stroke="rgba(255,255,255,.12)"/>
+        <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11.5" fill="#9BE3C8">
+          <text x="462" y="118">▸ intent  「设计抗 CLDN6 的 VHH」</text>
+          <text x="462" y="144">▸ generate  2,000 候选分子</text>
+          <text x="462" y="170">▸ evaluate  对接 + 亲和力预测</text>
+          <text x="462" y="196">▸ optimize  3 轮自主迭代</text>
+          <text x="462" y="222">▸ select    top-50 → 湿实验验证</text>
+          <text x="462" y="252" fill="#9FCB3B" font-weight="700">✓ deliver   2 nM 命中分子</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="grid-2" style="align-items:start">
+      <div class="reveal">
+        <div class="code-panel">
+          <div class="code-panel-head"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fname">geoflow_code — 基本算子(示意)</span></div>
+          <pre><span class="c-cmt"># 基本算子</span>
+<span class="c-key">generate</span>()   <span class="c-cmt"># 围绕目标生成候选分子</span>
+<span class="c-key">evaluate</span>()   <span class="c-cmt"># 结构、结合、成药性评估</span>
+<span class="c-key">optimize</span>()   <span class="c-cmt"># 多目标迭代优化循环</span>
+<span class="c-key">select</span>()     <span class="c-cmt"># 自主挑选实验分子</span>
+
+<span class="c-cmt"># 自由组装:随需调用,而非固定流程</span>
+pipeline = <span class="c-fn">compose</span>(
+  <span class="c-fn">generate</span>(target=<span class="c-str">"CLDN6"</span>),
+  <span class="c-fn">evaluate</span>(bind=<span class="c-str">"CLDN6"</span>, avoid=[<span class="c-str">"CLDN3"</span>,<span class="c-str">"CLDN9"</span>]),
+  <span class="c-fn">optimize</span>(goals=[<span class="c-str">"affinity"</span>,<span class="c-str">"Tm"</span>,<span class="c-str">"expression"</span>]),
+  <span class="c-fn">select</span>(top_k=<span class="c-num">20</span>)
+)</pre>
+        </div>
+      </div>
+      <div class="reveal reveal-d1">
+        <h3 class="h-sub" style="color:#fff;margin-bottom:20px">为什么是一门「语言」,而不只是又一个智能体</h3>
+        <ul class="check-list">
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span><span style="color:rgba(255,255,255,.75)"><b style="color:#fff">更底层的元能力</b> —— 智能体只是使用这门语言的一种方式;语言本身更基础、更可组合</span></li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span><span style="color:rgba(255,255,255,.75)"><b style="color:#fff">打破固定流程</b> —— V3 是「设计-筛选-进化」的固定工作流,V4 让每个环节随需调用、自由组合</span></li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span><span style="color:rgba(255,255,255,.75)"><b style="color:#fff">生物学家友好</b> —— 无需编写代码,以自然语言描述意图即可获得专家级的模型调用能力</span></li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span><span style="color:rgba(255,255,255,.75)"><b style="color:#fff">穷尽探索空间</b> —— 不止是提速,更是让设计质量超越人工经验的边界</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 案例:CLDN6 全流程 -->
+    <div class="grid-2" style="margin-top:72px;align-items:start">
+      <div class="reveal">
+        <h3 class="h-sub" style="color:#fff;margin-bottom:8px">实例:以 CLDN6 为例的全自动设计</h3>
+        <p style="color:rgba(255,255,255,.6);font-size:14.5px;margin-bottom:30px">从一句设计意图开始,全流程仅需两次人工确认。</p>
+        <div class="agent-steps">
+          <div class="agent-step">
+            <div class="as-dot">1</div>
+            <div><h4>靶点与竞对调研</h4><p>自动完成文献与竞对调研,生成结构化靶点分析报告。</p></div>
+          </div>
+          <div class="agent-step">
+            <div class="as-dot">2</div>
+            <div><h4>序列、结构对齐与可视化</h4><p>表位在 3D 结构上高亮呈现 —— 可交互、可确认。<span class="tag" style="margin-left:6px;background:rgba(143,227,220,.12);color:var(--t300);border-color:rgba(143,227,220,.3)">人工确认 ①</span></p></div>
+          </div>
+          <div class="agent-step">
+            <div class="as-dot">3</div>
+            <div><h4>自主编写设计流程并运行</h4><p>基于 GeoFlow Code 组装生成、评估、优化算子并自动执行;结果不理想即推导重来。<span class="tag" style="margin-left:6px;background:rgba(143,227,220,.12);color:var(--t300);border-color:rgba(143,227,220,.3)">人工确认 ②</span></p></div>
+          </div>
+          <div class="agent-step">
+            <div class="as-dot">4</div>
+            <div><h4>自主挑选实验分子</h4><p>输出可直接进入湿实验的候选分子清单与关键性能数据。</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-d1">
+        <div class="code-panel">
+          <div class="code-panel-head"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="fname">CLDN6_campaign.log(示意)</span></div>
+          <pre><span class="c-cmt">$ geoflow run --intent "design a CLDN6-specific
+   antibody, avoid CLDN3/4/9, pM affinity"</span>
+
+<span class="c-key">[01]</span> 靶点调研报告 ............ <span class="c-str">DONE</span>
+<span class="c-key">[02]</span> 表位定位(3D 高亮) ..... <span class="c-str">CONFIRMED</span>
+<span class="c-key">[03]</span> 组装设计流程 ............ <span class="c-str">DONE</span>
+       ├ generate × 3 rounds
+       ├ evaluate(bind / avoid)
+       └ optimize(affinity+Tm+expr)
+<span class="c-key">[04]</span> 自主挑选实验分子 ........ <span class="c-str">20 candidates</span>
+
+<span class="c-fn">✓ Campaign complete</span> — 等待湿实验验证</pre>
+        </div>
+        <div class="grid-2" style="margin-top:20px;gap:16px">
+          <div class="card-dark" style="padding:22px"><div style="font-family:var(--font-disp);font-weight:800;font-size:26px;color:var(--t300)">2 次</div><p style="font-size:13px;margin-top:4px">全流程人工交互次数,自主性极高</p></div>
+          <div class="card-dark" style="padding:22px"><div style="font-family:var(--font-disp);font-weight:800;font-size:26px;color:var(--t300)">0 行</div><p style="font-size:13px;margin-top:4px">用户需要编写的代码行数</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 落地性能 -->
+<section class="section">
+  <span class="section-num">04</span>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Results · 落地验证</span>
+      <h2 class="h-title">从「能结合」到「能成药」</h2>
+      <p class="lead">模型性能的突破,直接反映在真实设计任务上 —— 命中率、模态覆盖与亲和力的全面跃升。</p>
+    </div>
+    <div class="grid-4">
+      <div class="card reveal center" style="padding:36px 24px">
+        <div style="font-family:var(--font-disp);font-weight:800;font-size:38px" class="text-grad">20→30%</div>
+        <p style="margin-top:10px;font-weight:600">靶点命中率</p>
+        <p class="small">蛋白质设计任务成功率显著提升 *</p>
+      </div>
+      <div class="card reveal reveal-d1 center" style="padding:36px 24px">
+        <div style="font-family:var(--font-disp);font-weight:800;font-size:38px" class="text-grad">18.7→35%</div>
+        <p style="margin-top:10px;font-weight:600">平均结合率</p>
+        <p class="small">湿实验验证,较上一代约翻倍 *</p>
+      </div>
+      <div class="card reveal reveal-d2 center" style="padding:36px 24px">
+        <div style="font-family:var(--font-disp);font-weight:800;font-size:38px" class="text-grad">nM→pM</div>
+        <p style="margin-top:10px;font-weight:600">亲和力跃迁</p>
+        <p class="small">多个靶点达 nM 乃至 pM 量级,达成药标准 *</p>
+      </div>
+      <div class="card reveal reveal-d3 center" style="padding:36px 24px">
+        <div style="font-family:var(--font-disp);font-weight:800;font-size:38px" class="text-grad">3</div>
+        <p style="margin-top:10px;font-weight:600">模态覆盖</p>
+        <p class="small">蛋白 · 抗体 · 环肽从头设计</p>
+      </div>
+    </div>
+
+    <div class="card reveal" style="margin-top:26px;padding:36px 34px">
+      <div class="grid-2" style="align-items:center;gap:40px">
+        <div>
+          <span class="num-badge">成药性评价</span>
+          <h3 style="font-size:20px;margin-bottom:12px">不只追求结合,默认通盘考量成药性</h3>
+          <p style="color:var(--ink-2);font-size:14.5px">表达量、非特异性、热稳定性等指标被系统性纳入设计与评估 —— 输出的是「可直接进入后续研发」的分子,而非仅仅是「能结合靶点」的 Binder。成药性表现与业界现有抗体药产生方法处于同一优秀区间。</p>
+        </div>
+        <div class="grid-3" style="gap:14px">
+          <div class="case-stat"><span class="n" style="font-size:24px">表达量</span><span class="d">高产表达,降低生产成本</span></div>
+          <div class="case-stat"><span class="n" style="font-size:24px">非特异</span><span class="d">低非特异性结合,更安全</span></div>
+          <div class="case-stat"><span class="n" style="font-size:24px">热稳定</span><span class="d">Tm 达标,易于储存运输</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footnote reveal" style="margin-top:20px">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+      <span>* 标注星号指标为内部项目统计口径,最终以技术报告终稿为准;成药性结论不构成临床承诺,候选分子仍需经过完整研发与临床验证。</span>
+    </div>
+  </div>
+</section>
+
+<!-- 演进回顾 -->
+<section class="section" style="background:var(--white);border-top:1px solid var(--line)">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Evolution · 技术传承</span>
+      <h2 class="h-title">每一代,都提出下一代的研发概念</h2>
+    </div>
+    <div class="grid-4">
+      <div class="card reveal" style="padding:28px 24px">
+        <div class="ver" style="font-family:var(--font-disp);font-weight:800;font-size:20px">V1</div>
+        <div class="small" style="margin:4px 0 12px">2024.06</div>
+        <p style="font-size:13.5px">抗原-抗体结构预测超越 AlphaFold3</p>
+      </div>
+      <div class="card reveal reveal-d1" style="padding:28px 24px">
+        <div class="ver" style="font-family:var(--font-disp);font-weight:800;font-size:20px">V2</div>
+        <div class="small" style="margin:4px 0 12px">2025.04</div>
+        <p style="font-size:13.5px">统一预测与生成,一体化设计低 nM 候选</p>
+      </div>
+      <div class="card reveal reveal-d2" style="padding:28px 24px">
+        <div class="ver" style="font-family:var(--font-disp);font-weight:800;font-size:20px">V3</div>
+        <div class="small" style="margin:4px 0 12px">2025.10</div>
+        <p style="font-size:13.5px">多步推理,命中率 0.1% → 18%,nM 亲和力</p>
+      </div>
+      <div class="card reveal reveal-d3" style="padding:28px 24px;border-color:rgba(22,160,121,.4);box-shadow:var(--shadow-glow)">
+        <div class="ver" style="font-family:var(--font-disp);font-weight:800;font-size:20px"><span class="text-grad">V4 · GeoFlow Code</span></div>
+        <div class="small" style="margin:4px 0 12px">2026.08</div>
+        <p style="font-size:13.5px">蛋白质设计编程语言;pM 量级亲和力 · 三类模态 · 70% 基准合格率</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="cta-band reveal">
+      <div class="cta-inner">
+        <div>
+          <h2>用 GeoFlow Code<br>完成你的复杂分子设计任务</h2>
+          <p>技术报告与平台体验现已开放;复杂设计需求,欢迎与我们的科学家团队直接交流。</p>
+        </div>
+        <div class="actions">
+          <a href="https://prot.design" target="_blank" rel="noopener" class="btn btn-light">体验平台 <span class="arr">→</span></a>
+          <a href="contact.html" class="btn btn-outline-light">联系科学家团队</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo/logo-white.png" alt="BioGeometry">
+        <p>生成式 AI 驱动的生物科技公司。以生成式 AI 解码生命几何,推动大分子药物研发从筛选走向设计。</p>
+        <p style="margin-top:14px;font-size:12.5px;color:rgba(255,255,255,.4)">平台入口:<a href="https://prot.design" target="_blank" rel="noopener" style="color:var(--t300)">prot.design</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>技术平台</h4>
+        <a href="technology.html">GeoFlow 基础模型</a>
+        <a href="geoflow-code.html">GeoFlow Code</a>
+        <a href="technology.html#loop">干湿闭环体系</a>
+        <a href="technology.html#infra">数据与算力底座</a>
+        <a href="science.html#reports">技术报告</a>
+        <a href="https://prot.design" target="_blank" rel="noopener">GeoBiologics 平台 ↗</a>
+      </div>
+      <div class="footer-col">
+        <h4>解决方案</h4>
+        <a href="solutions.html#bio">生物医药</a>
+        <a href="solutions.html#synbio">合成生物(GeoEnzyme)</a>
+        <a href="solutions.html#cases">项目验证</a>
+        <a href="pipeline.html">开放合作管线</a>
+        <a href="pipeline.html#models">合作模式</a>
+      </div>
+      <div class="footer-col">
+        <h4>公司与资源</h4>
+        <a href="about.html">关于我们</a>
+        <a href="about.html#investors">投资方</a>
+        <a href="news.html">新闻动态</a>
+        <a href="science.html">科学研究</a>
+        <a href="careers.html">加入我们</a>
+        <a href="contact.html">联系我们</a>
+      </div>
+      <div class="footer-col">
+        <h4>联系方式</h4>
+        <ul class="footer-contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg><span>北京市海淀区融科资讯中心 A 座 605 室</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M9 3h6v6l4 8a2 2 0 0 1-2 3H7a2 2 0 0 1-2 3H7a2 2 0 0 1-2-3l4-8V3z"/></svg><span>上海市浦东新区古恩路 158 号悦丰生命科学园 D 栋(实验室)</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>商务合作 bd@biogeom.com<br>媒体垂询 pr@biogeom.com</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 百奥几何 BioGeometry · Beijing · Shanghai</span>
+      <div class="footer-social">
+        <span class="social-ico" title="微信搜索:百奥几何" style="cursor:pointer" aria-label="微信公众号"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.8-.8L3 20.5l1.3-4.2a8.4 8.4 0 1 1 16.7-4.8z"/></svg></span>
+        <a href="https://www.linkedin.com/company/biogeometry" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v5M8 8v.01M12 16v-3a2 2 0 0 1 4 0v3"/></svg></a>
+        <a href="https://x.com/BioGeometry" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l16 16M20 4 4 20"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

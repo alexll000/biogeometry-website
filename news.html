@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新闻动态 | 百奥几何 BioGeometry</title>
+<meta name="description" content="百奥几何新闻中心:GeoFlow 模型发布、融资进展、技术突破与生态合作动态。">
+<meta property="og:title" content="新闻动态 | 百奥几何 BioGeometry">
+<meta property="og:description" content="百奥几何新闻中心:GeoFlow 模型发布、融资进展、技术突破与生态合作动态。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/hero-protein.png">
+<link rel="icon" href="assets/logo/logo400.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .featured-news{
+    display:grid;grid-template-columns:1.1fr 1fr;border-radius:24px;overflow:hidden;
+    background:var(--grad-dark);color:#fff;min-height:380px;
+  }
+  .featured-news .fn-cover{
+    position:relative;padding:40px;display:flex;flex-direction:column;justify-content:flex-end;
+    background:
+      radial-gradient(500px 300px at 80% 10%,rgba(143,227,220,.25),transparent 60%),
+      linear-gradient(160deg,#06332A,#0B5445);
+  }
+  .featured-news .fn-body{padding:44px 42px;display:flex;flex-direction:column;justify-content:center}
+  .featured-news h2{font-family:var(--font-disp);font-size:clamp(22px,2.4vw,30px);font-weight:700;line-height:1.4;margin:14px 0}
+  .featured-news p{color:rgba(255,255,255,.68);font-size:15px}
+  @media(max-width:900px){.featured-news{grid-template-columns:1fr}}
+  .news-list-item{
+    display:grid;grid-template-columns:120px 1fr auto;gap:26px;align-items:center;
+    padding:28px 30px;background:var(--white);border:1px solid var(--line);border-radius:16px;transition:all .35s;
+  }
+  .news-list-item:hover{transform:translateX(8px);border-color:rgba(22,160,121,.3);box-shadow:var(--shadow-s)}
+  .news-list-item .nl-date{font-family:var(--font-disp);font-weight:700;color:var(--g600);font-size:14.5px}
+  .news-list-item .nl-date span{display:block;font-size:12px;color:var(--ink-3);font-weight:600;margin-top:2px}
+  .news-list-item h3{font-size:17px;font-weight:700;line-height:1.5}
+  .news-list-item p{font-size:13.5px;color:var(--ink-2);margin-top:6px}
+  @media(max-width:760px){.news-list-item{grid-template-columns:1fr;gap:10px}}
+</style>
+</head>
+<body class="has-announce">
+
+<div class="announce">
+  <span class="a-tag">NEW · 2026.08</span>
+  <span class="a-desc">GeoFlow V4 发布:GeoFlow Code 蛋白质设计编程语言</span>
+  <a href="geoflow-code.html">查看发布详情 →</a>
+</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/logo/logo横向布局.png" alt="百奥几何 BioGeometry"></a>
+    <nav class="nav-menu">
+      <div class="nav-item has-sub">
+        <a href="technology.html" class="nav-link">技术平台 <span class="caret"></span></a>
+        <div class="dropdown">
+          <a href="technology.html"><b>GeoFlow 基础模型</b><span>结构预测 × 从头设计的一体化全原子模型</span></a>
+          <a href="geoflow-code.html"><b>GeoFlow Code</b><span>蛋白质设计编程语言 · V4 全新发布</span></a>
+          <a href="technology.html#loop"><b>干湿闭环体系</b><span>设计—验证—学习—再设计</span></a>
+          <a href="technology.html#infra"><b>数据与算力底座</b><span>800 万+ 结构数据 · 300+ GPU</span></a>
+        </div>
+      </div>
+      <div class="nav-item has-sub">
+        <a href="solutions.html" class="nav-link">解决方案 <span class="caret"></span></a>
+        <div class="dropdown">
+          <a href="solutions.html#bio"><b>生物医药</b><span>抗体 · 环肽 · 小蛋白从头设计</span></a>
+          <a href="solutions.html#synbio"><b>合成生物</b><span>GeoEnzyme 智能酶工程</span></a>
+          <a href="solutions.html#cases"><b>项目验证</b><span>经湿实验验证的代表性案例</span></a>
+          <a href="solutions.html#process"><b>合作流程</b><span>从需求评估到候选交付</span></a>
+        </div>
+      </div>
+      <div class="nav-item"><a href="pipeline.html" class="nav-link">管线与合作</a></div>
+      <div class="nav-item"><a href="science.html" class="nav-link">科学研究</a></div>
+      <div class="nav-item active"><a href="news.html" class="nav-link">新闻动态</a></div>
+      <div class="nav-item has-sub">
+        <a href="about.html" class="nav-link">关于我们 <span class="caret"></span></a>
+        <div class="dropdown">
+          <a href="about.html"><b>公司介绍</b><span>使命 · 历程 · 核心团队</span></a>
+          <a href="about.html#investors"><b>投资方</b><span>顶级机构背书的战略融资</span></a>
+          <a href="careers.html"><b>加入我们</b><span>与图灵奖得主团队共创未来</span></a>
+          <a href="contact.html"><b>联系我们</b><span>商务合作与媒体垂询</span></a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-cta">
+      <span class="nav-lang">中 / EN</span>
+      <a href="https://prot.design" target="_blank" rel="noopener" class="btn btn-primary btn-nav">体验 GeoFlow <span class="arr">→</span></a>
+    </div>
+    <button class="nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">首页</a><span>/</span><span>新闻动态</span></div>
+    <span class="eyebrow">Newsroom</span>
+    <h1 class="h-display">新闻动态</h1>
+    <p class="lead" style="margin-top:22px">模型发布、融资进展、技术突破与生态合作 —— 了解百奥几何的最新进展。</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:56px">
+  <div class="container">
+    <!-- 分类筛选 -->
+    <div class="filter-bar reveal">
+      <button class="filter-chip active">全部</button>
+      <button class="filter-chip">模型发布</button>
+      <button class="filter-chip">公司动态</button>
+      <button class="filter-chip">客户案例</button>
+      <button class="filter-chip">研究生态</button>
+      <button class="filter-chip">媒体报道</button>
+    </div>
+    <!-- 头条 -->
+    <a href="geoflow-code.html" class="featured-news reveal" style="margin-bottom:26px">
+      <div class="fn-cover">
+        <span class="tag" style="align-self:flex-start;background:rgba(143,227,220,.14);color:var(--t300);border-color:rgba(143,227,220,.35)">模型发布 · 头条</span>
+        <div style="font-family:var(--font-disp);font-weight:800;font-size:clamp(34px,4vw,52px);margin-top:18px;color:#fff">GeoFlow <span style="background:var(--grad-code);-webkit-background-clip:text;background-clip:text;color:transparent">Code</span></div>
+        <div class="mono" style="color:rgba(255,255,255,.5);font-size:12.5px;margin-top:8px">A Programming Language for Generative Biology</div>
+      </div>
+      <div class="fn-body">
+        <div class="news-date" style="color:var(--t300)">2026.08 · 全新发布</div>
+        <h2>GeoFlow V4 发布:提出 GeoFlow Code 蛋白质设计编程语言,亲和力进入 pM 时代</h2>
+        <p>对接合格率 70% 业界领先;靶点命中率 20%→30%;覆盖蛋白、抗体、环肽三模态;复杂设计需求自动翻译为设计语言。</p>
+        <span class="link-arrow" style="color:var(--t300);margin-top:22px">进入专题页 →</span>
+      </div>
+    </a>
+
+    <!-- 列表 -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <a href="news-financing.html" class="news-list-item reveal" id="n-fin">
+        <div class="nl-date">2026.06.30<span>公司动态</span></div>
+        <div>
+          <h3>百奥几何完成数亿元战略融资,加速高通量自动化实验室与创新管线建设</h3>
+          <p>由上海生物医药创新转化基金、国科投资、达晨财智、星连资本联合领投,高榕资本、指数人工智能产业创新基金跟投。</p>
+        </div>
+        <span class="link-arrow">阅读 →</span>
+      </a>
+      <a href="news-v3.html" class="news-list-item reveal" id="n-v3">
+        <div class="nl-date">2025.10.22<span>模型发布</span></div>
+        <div>
+          <h3>表位进、抗体出:GeoFlow V3 将高效从头抗体设计推向新极限</h3>
+          <p>引入多步推理,靶点命中率由 0.1% 提升至 18%;结构预测与从头设计一体化,获得低纳摩尔级候选抗体。</p>
+        </div>
+        <span class="link-arrow">阅读 →</span>
+      </a>
+      <a href="news-vazyme.html" class="news-list-item reveal" id="n-enz">
+        <div class="nl-date">2025.07.08<span>客户案例</span></div>
+        <div>
+          <h3>21 倍性能提升:百奥几何助力诺唯赞实现 IVD 酶优化突破</h3>
+          <p>GeoEnzyme 智能酶工程平台在真实产业场景中验证价值,酶活性、稳定性与选择性多目标同步优化。</p>
+        </div>
+        <span class="link-arrow">阅读 →</span>
+      </a>
+      <a href="news-v2.html" class="news-list-item reveal" id="n-v2">
+        <div class="nl-date">2025.04<span>模型发布</span></div>
+        <div>
+          <h3>GeoFlow V2 发布:统一蛋白质结构预测与从头设计</h3>
+          <p>首个一体化全原子框架,直接获得低纳摩尔级候选抗体,打通「预测 — 生成」双能力。</p>
+        </div>
+        <span class="link-arrow">阅读 →</span>
+      </a>
+      <a href="news-prea.html" class="news-list-item reveal" id="n-preA">
+        <div class="nl-date">2024.06<span>公司动态</span></div>
+        <div>
+          <h3>百奥几何完成 Pre-A 轮融资,发布 GeoFlow V1</h3>
+          <p>完成生成式 AI 与湿实验双平台搭建;抗原-抗体结构预测性能超越 AlphaFold3。</p>
+        </div>
+        <span class="link-arrow">阅读 →</span>
+      </a>
+      <a href="news-research.html" class="news-list-item reveal" id="n-eco">
+        <div class="nl-date">持续更新<span>研究生态</span></div>
+        <div>
+          <h3>团队深度参与 NVIDIA 开源蛋白质大模型 La Proteina;自研 PerturbDiff 获国际关注</h3>
+          <p>作为核心贡献者参与 La Proteina 研发;AI 虚拟细胞模型 PerturbDiff 在国际科研领域受到广泛关注。</p>
+        </div>
+        <span class="link-arrow">阅读 →</span>
+      </a>
+    </div>
+
+    <div class="grid-2" style="margin-top:40px;align-items:stretch">
+      <div class="card reveal" style="padding:30px 34px;display:flex;flex-direction:column;justify-content:center;gap:10px">
+        <h3 style="font-size:18px">媒体垂询</h3>
+        <p style="font-size:14px;color:var(--ink-2)">新闻素材、采访与合作,请联系 pr@biogeom.com;品牌 Logo、高管形象照与公司事实页,可在右侧媒体资料库直接申请获取。</p>
+        <a href="contact.html" class="link-arrow" style="margin-top:6px">联系公关团队 →</a>
+      </div>
+      <!-- 生产规格(后期执行):资料包文件(Logo 包/Fact Sheet/形象照/主视觉)由品牌团队产出后挂真实下载链接,对齐晶泰「媒体资料库」做法。 -->
+      <div class="card reveal reveal-d1" style="padding:30px 34px;display:flex;flex-direction:column;gap:14px">
+        <h3 style="font-size:18px">媒体资料库</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;font-size:13.5px;color:var(--ink-2)">
+          <span style="display:flex;align-items:center;gap:8px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g600)" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>品牌 Logo 包</span>
+          <span style="display:flex;align-items:center;gap:8px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g600)" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>公司事实页 Fact Sheet</span>
+          <span style="display:flex;align-items:center;gap:8px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g600)" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>高管形象照</span>
+          <span style="display:flex;align-items:center;gap:8px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g600)" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>主视觉素材</span>
+        </div>
+        <a href="mailto:pr@biogeom.com?subject=%E5%AA%92%E4%BD%93%E8%B5%84%E6%96%99%E5%8C%85%E7%94%B3%E8%AF%B7" class="link-arrow" style="margin-top:auto">申请媒体资料包 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo/logo-white.png" alt="BioGeometry">
+        <p>生成式 AI 驱动的生物科技公司。以生成式 AI 解码生命几何,推动大分子药物研发从筛选走向设计。</p>
+        <p style="margin-top:14px;font-size:12.5px;color:rgba(255,255,255,.4)">平台入口:<a href="https://prot.design" target="_blank" rel="noopener" style="color:var(--t300)">prot.design</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>技术平台</h4>
+        <a href="technology.html">GeoFlow 基础模型</a>
+        <a href="geoflow-code.html">GeoFlow Code</a>
+        <a href="technology.html#loop">干湿闭环体系</a>
+        <a href="technology.html#infra">数据与算力底座</a>
+        <a href="science.html#reports">技术报告</a>
+        <a href="https://prot.design" target="_blank" rel="noopener">GeoBiologics 平台 ↗</a>
+      </div>
+      <div class="footer-col">
+        <h4>解决方案</h4>
+        <a href="solutions.html#bio">生物医药</a>
+        <a href="solutions.html#synbio">合成生物(GeoEnzyme)</a>
+        <a href="solutions.html#cases">项目验证</a>
+        <a href="pipeline.html">开放合作管线</a>
+        <a href="pipeline.html#models">合作模式</a>
+      </div>
+      <div class="footer-col">
+        <h4>公司与资源</h4>
+        <a href="about.html">关于我们</a>
+        <a href="about.html#investors">投资方</a>
+        <a href="news.html">新闻动态</a>
+        <a href="science.html">科学研究</a>
+        <a href="careers.html">加入我们</a>
+        <a href="contact.html">联系我们</a>
+      </div>
+      <div class="footer-col">
+        <h4>联系方式</h4>
+        <ul class="footer-contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg><span>北京市海淀区融科资讯中心 A 座 605 室</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M9 3h6v6l4 8a2 2 0 0 1-2 3H7a2 2 0 0 1-2-3l4-8V3z"/></svg><span>上海市浦东新区古恩路 158 号悦丰生命科学园 D 栋(实验室)</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>商务合作 bd@biogeom.com<br>媒体垂询 pr@biogeom.com</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 百奥几何 BioGeometry · Beijing · Shanghai</span>
+      <div class="footer-social">
+        <span class="social-ico" title="微信搜索:百奥几何" style="cursor:pointer" aria-label="微信公众号"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.8-.8L3 20.5l1.3-4.2a8.4 8.4 0 1 1 16.7-4.8z"/></svg></span>
+        <a href="https://www.linkedin.com/company/biogeometry" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v5M8 8v.01M12 16v-3a2 2 0 0 1 4 0v3"/></svg></a>
+        <a href="https://x.com/BioGeometry" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l16 16M20 4 4 20"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

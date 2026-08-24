@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>关于我们 | 百奥几何 BioGeometry</title>
+<meta name="description" content="百奥几何是生成式AI驱动的生物科技公司,由 AI 制药科学家唐建博士创立,图灵奖得主 Yoshua Bengio 担任首席科学顾问。">
+<meta property="og:title" content="关于我们 | 百奥几何 BioGeometry">
+<meta property="og:description" content="百奥几何是生成式AI驱动的生物科技公司,由 AI 制药科学家唐建博士创立,图灵奖得主 Yoshua Bengio 担任首席科学顾问。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/hero-protein.png">
+<link rel="icon" href="assets/logo/logo400.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* 发展历程:全宽水平时间轴 */
+  .ms-track{display:grid;grid-template-columns:repeat(5,1fr);gap:0 26px;position:relative;margin-top:10px}
+  .ms-track::before{content:"";position:absolute;top:58px;left:2%;right:2%;height:2px;background:linear-gradient(90deg,var(--g200),var(--g300) 55%,var(--l400))}
+  .ms-item{position:relative}
+  .ms-item .ms-date{font-family:var(--font-disp);font-weight:800;color:var(--g600);font-size:17px;letter-spacing:.01em}
+  .ms-item .ms-dot{width:15px;height:15px;border-radius:50%;background:var(--white);border:3px solid var(--g500);margin:13px 0 18px;position:relative;z-index:1}
+  .ms-item.hl .ms-date{color:var(--l700)}
+  .ms-item.hl .ms-dot{border-color:var(--l500);box-shadow:0 0 0 5px rgba(159,203,59,.18)}
+  .ms-item h4{font-size:15.5px;font-weight:700;margin:0 0 6px;line-height:1.55}
+  .ms-item p{font-size:13px;color:var(--ink-2);line-height:1.7}
+  @media(max-width:900px){
+    .ms-track{grid-template-columns:1fr;gap:30px}
+    .ms-track::before{top:6px;bottom:6px;left:7px;right:auto;width:2px;height:auto;background:linear-gradient(180deg,var(--g200),var(--g300) 55%,var(--l400))}
+    .ms-item{padding-left:34px}
+    .ms-item .ms-dot{position:absolute;left:0;top:5px;margin:0}
+  }
+  .job-item{
+    display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;
+    padding:24px 28px;background:var(--white);border:1px solid var(--line);border-radius:14px;transition:all .35s;
+  }
+  .job-item:hover{border-color:rgba(22,160,121,.35);box-shadow:var(--shadow-s);transform:translateX(6px)}
+  .job-item h4{font-size:16.5px;font-weight:700;color:var(--ink)}
+  .job-item .meta{font-size:13px;color:var(--ink-3);margin-top:4px}
+</style>
+</head>
+<body class="has-announce">
+
+<div class="announce">
+  <span class="a-tag">NEW · 2026.08</span>
+  <span class="a-desc">GeoFlow V4 发布:GeoFlow Code 蛋白质设计编程语言</span>
+  <a href="geoflow-code.html">查看发布详情 →</a>
+</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/logo/logo横向布局.png" alt="百奥几何 BioGeometry"></a>
+    <nav class="nav-menu">
+      <div class="nav-item has-sub">
+        <a href="technology.html" class="nav-link">技术平台 <span class="caret"></span></a>
+        <div class="dropdown">
+          <a href="technology.html"><b>GeoFlow 基础模型</b><span>结构预测 × 从头设计的一体化全原子模型</span></a>
+          <a href="geoflow-code.html"><b>GeoFlow Code</b><span>蛋白质设计编程语言 · V4 全新发布</span></a>
+          <a href="technology.html#loop"><b>干湿闭环体系</b><span>设计—验证—学习—再设计</span></a>
+          <a href="technology.html#infra"><b>数据与算力底座</b><span>800 万+ 结构数据 · 300+ GPU</span></a>
+        </div>
+      </div>
+      <div class="nav-item has-sub">
+        <a href="solutions.html" class="nav-link">解决方案 <span class="caret"></span></a>
+        <div class="dropdown">
+          <a href="solutions.html#bio"><b>生物医药</b><span>抗体 · 环肽 · 小蛋白从头设计</span></a>
+          <a href="solutions.html#synbio"><b>合成生物</b><span>GeoEnzyme 智能酶工程</span></a>
+          <a href="solutions.html#cases"><b>项目验证</b><span>经湿实验验证的代表性案例</span></a>
+          <a href="solutions.html#process"><b>合作流程</b><span>从需求评估到候选交付</span></a>
+        </div>
+      </div>
+      <div class="nav-item"><a href="pipeline.html" class="nav-link">管线与合作</a></div>
+      <div class="nav-item"><a href="science.html" class="nav-link">科学研究</a></div>
+      <div class="nav-item"><a href="news.html" class="nav-link">新闻动态</a></div>
+      <div class="nav-item has-sub active">
+        <a href="about.html" class="nav-link">关于我们 <span class="caret"></span></a>
+        <div class="dropdown">
+          <a href="about.html"><b>公司介绍</b><span>使命 · 历程 · 核心团队</span></a>
+          <a href="about.html#investors"><b>投资方</b><span>顶级机构背书的战略融资</span></a>
+          <a href="careers.html"><b>加入我们</b><span>与图灵奖得主团队共创未来</span></a>
+          <a href="contact.html"><b>联系我们</b><span>商务合作与媒体垂询</span></a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-cta">
+      <span class="nav-lang">中 / EN</span>
+      <a href="https://prot.design" target="_blank" rel="noopener" class="btn btn-primary btn-nav">体验 GeoFlow <span class="arr">→</span></a>
+    </div>
+    <button class="nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">首页</a><span>/</span><span>关于我们</span></div>
+    <span class="eyebrow">About BioGeometry</span>
+    <h1 class="h-display">以生成式 AI<br>解码<span class="text-grad">生命几何</span></h1>
+    <p class="lead" style="margin-top:22px">百奥几何是一家生成式 AI 驱动的生物科技公司,致力于让生成式 AI 设计下一代药物。通过自研蛋白质生成式大模型 GeoFlow 与高通量湿实验闭环平台,聚焦抗体发现与蛋白工程,推动大分子药物研发从筛选走向设计。</p>
+  </div>
+</section>
+
+<!-- 公司数据 -->
+<section class="section" style="padding-top:56px">
+  <div class="container">
+    <div class="grid-4">
+      <div class="card reveal center" style="padding:34px 22px">
+        <div style="font-family:var(--font-disp);font-weight:800;font-size:42px" class="text-grad"><span data-count="18">0</span></div>
+        <p style="margin-top:8px;font-weight:600">VHH/IgG 从头设计成功项目</p>
+      </div>
+      <div class="card reveal reveal-d1 center" style="padding:34px 22px">
+        <div style="font-family:var(--font-disp);font-weight:800;font-size:42px" class="text-grad"><span data-count="20">0</span>+</div>
+        <p style="margin-top:8px;font-weight:600">大模型微调应用项目</p>
+      </div>
+      <div class="card reveal reveal-d2 center" style="padding:34px 22px">
+        <div style="font-family:var(--font-disp);font-weight:800;font-size:42px" class="text-grad"><span data-count="30">0</span>+</div>
+        <p style="margin-top:8px;font-weight:600">抗体/蛋白改造与优化项目</p>
+      </div>
+      <div class="card reveal reveal-d3 center" style="padding:34px 22px">
+        <div style="font-family:var(--font-disp);font-weight:800;font-size:42px" class="text-grad"><span data-count="20">0</span>+</div>
+        <p style="margin-top:8px;font-weight:600">酶改造与优化项目</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 发展历程 -->
+<section class="section" id="milestones" style="background:var(--white);border-top:1px solid var(--line)">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Milestones</span>
+      <h2 class="h-title">发展历程</h2>
+      <p class="lead">2023 年正式运营以来,百奥几何以每年一代的速度迭代 GeoFlow 模型,并持续获得顶级资本的认可 —— 三年五个关键节点,每一步都指向同一个目标:让蛋白质设计成为可编程的工程。</p>
+    </div>
+    <div class="ms-track reveal">
+      <div class="ms-item">
+        <div class="ms-date">2024.06</div>
+        <div class="ms-dot"></div>
+        <h4>完成 Pre-A 轮融资 · 发布 GeoFlow V1</h4>
+        <p>完成生成式 AI 与湿实验双平台搭建。</p>
+      </div>
+      <div class="ms-item">
+        <div class="ms-date">2025.04</div>
+        <div class="ms-dot"></div>
+        <h4>发布 GeoFlow V2</h4>
+        <p>实现结构预测与从头设计一体化,获得低纳摩尔级候选抗体。</p>
+      </div>
+      <div class="ms-item">
+        <div class="ms-date">2025.10</div>
+        <div class="ms-dot"></div>
+        <h4>发布 GeoFlow V3</h4>
+        <p>引入多步推理,提升从头设计能力与候选分子命中效率。</p>
+      </div>
+      <div class="ms-item">
+        <div class="ms-date">2026.06</div>
+        <div class="ms-dot"></div>
+        <h4>完成新一轮数亿元战略融资</h4>
+        <p>支持平台持续迭代,推进自动化实验与创新管线建设。</p>
+      </div>
+      <div class="ms-item hl">
+        <div class="ms-date">2026.08</div>
+        <div class="ms-dot"></div>
+        <h4>发布 GeoFlow V4 · 提出 GeoFlow Code</h4>
+        <p>蛋白质设计编程语言;对接合格率 70% 业界领先,亲和力进入 pM 时代。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 核心团队 -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Leadership</span>
+      <h2 class="h-title">核心团队</h2>
+      <p class="lead">核心团队成员来自北大、清华、上交等国内外顶级名校,以及国内外头部药企与顶级生物实验室。</p>
+    </div>
+    <div class="grid-2">
+      <div class="person-card reveal">
+        <div class="person-head">
+          <div class="person-avatar">唐</div>
+          <div>
+            <h3>唐建 博士</h3>
+            <div class="role">创始人 / CEO</div>
+          </div>
+        </div>
+        <div class="person-body">
+          <p style="font-size:14px;color:var(--ink-2);margin-bottom:16px">长期从事图表示学习、生成模型与 AI 药物研发研究,在学术界和产业界拥有丰富经验。</p>
+          <ul>
+            <li>Mila 终身教授、Canada CIFAR AI Chair、HEC Montréal 副教授;蒙特利尔大学兼职教授,昌平实验室、北京大学访问教授</li>
+            <li>北京大学计算机博士,CMU、UMich 博士后</li>
+            <li>发起开源药物发现机器学习平台 TorchDrug,为最早一批同类开源平台之一</li>
+            <li>在 Nature、Lancet、ICLR 等发表百余篇论文,代表论文 LINE 单篇引用超 7000 次</li>
+            <li>多次担任 ICML、NeurIPS 领域主席;2026 年 LINE 获 WWW Test of Time Award</li>
+            <li>2022 年中国智能计算科技创新人物</li>
+          </ul>
+        </div>
+      </div>
+      <div class="person-card reveal reveal-d1">
+        <div class="person-head">
+          <div class="person-avatar" style="background:linear-gradient(135deg,#0B5445,#16A079)">YB</div>
+          <div>
+            <h3>Yoshua Bengio</h3>
+            <div class="role">首席科学顾问</div>
+          </div>
+        </div>
+        <div class="person-body">
+          <p style="font-size:14px;color:var(--ink-2);margin-bottom:16px">2018 年图灵奖得主、深度学习奠基者之一,长期推动神经网络、表示学习与生成模型的发展,为百奥几何的 AI for Science 战略提供科学指导。</p>
+          <ul>
+            <li>Mila 创始人和科学总监;伦敦和加拿大皇家学会双院士</li>
+            <li>联合国科学顾问委员会委员;MIT、AT&T 贝尔实验室博士后</li>
+            <li>在深度学习、神经语言模型、Attention 与 GAN 等方向作出奠基性贡献</li>
+            <li>NeurIPS 顾问委员会成员,ICLR 联合创始人</li>
+            <li>加拿大勋章获得者,法国荣誉军团骑士</li>
+            <li>2018 年图灵奖(计算机领域的诺贝尔奖),深度学习三位奠基人之一</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 团队群像:不做个人单列,以集体画像呈现 -->
+    <div class="mt-80">
+      <div class="grid-2 reveal" style="align-items:center">
+        <div class="media" style="aspect-ratio:16/10">
+          <img src="assets/gen/team-lab.png" alt="百奥几何研发团队围绕蛋白质结构开展研讨的场景">
+          <div class="cap"><b>一支「AI × 生物」双栈团队</b>以生成式模型与湿实验闭环驱动研发的日常</div>
+        </div>
+        <div class="stack-md">
+          <div>
+            <span class="eyebrow">The Team</span>
+            <h3 class="h-sub display-zh">顶级院校 × 头部药企 × 顶级实验室<br><span class="text-grad">一支跨学科的研发队伍</span></h3>
+          </div>
+          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.8">除两位领衔科学家外,百奥几何的核心研究与工程团队由一批来自国内外顶尖机构的研究者、工程师与实验科学家组成 —— 他们共同构成了干湿闭环的执行力底座。</p>
+        </div>
+      </div>
+
+      <!-- 学术与产业血统:机构字标墙(与资方墙同一设计语言) -->
+      <div class="reveal" style="margin-top:56px">
+        <p class="wall-label">学术与产业血统 · Pedigree</p>
+        <div class="logo-wall alma-wall">
+          <div class="logo-tile"><span class="wm">北京大学</span><span class="wm-en">Peking University</span></div>
+          <div class="logo-tile"><span class="wm">清华大学</span><span class="wm-en">Tsinghua University</span></div>
+          <div class="logo-tile"><span class="wm">上海交通大学</span><span class="wm-en">Shanghai Jiao Tong University</span></div>
+          <div class="logo-tile"><span class="wm">Mila</span><span class="wm-en">Quebec AI Institute</span></div>
+          <div class="logo-tile"><span class="wm">国内外头部药企</span><span class="wm-en">Leading Pharma Companies</span></div>
+          <div class="logo-tile"><span class="wm">顶级生物实验室</span><span class="wm-en">Top-tier Research Institutes</span></div>
+        </div>
+        <p class="small" style="margin-top:16px;text-align:center">机构标识为字标呈现 · 仅示意团队背景构成,不代表机构官方背书</p>
+      </div>
+
+      <div class="team-facts reveal" style="margin-top:44px">
+        <div class="team-fact">
+          <div class="tf-ico"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M22 10 12 5 2 10l10 5 10-5zM6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg></div>
+          <h4>顶尖学术血统</h4>
+          <p>核心成员多毕业于北大、清华、上交等国内外名校,在机器学习、结构生物学、抗体工程等方向拥有深厚训练。</p>
+        </div>
+        <div class="team-fact">
+          <div class="tf-ico"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M9 3h6v4l4 11a2.4 2.4 0 0 1-2.2 3H7.2A2.4 2.4 0 0 1 5 18L9 7z"/><path d="M8.5 13h7"/></svg></div>
+          <h4>产业与科研双栈</h4>
+          <p>团队兼具头部药企与顶级生物实验室的实战经验,以及大模型工程的系统能力,让算法真正落在分子上。</p>
+        </div>
+        <div class="team-fact">
+          <div class="tf-ico"><svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"/></svg></div>
+          <h4>全球化研究协作</h4>
+          <p>核心成员作为骨干参与 NVIDIA 开源蛋白模型 La Proteina,自研 AI 虚拟细胞模型 PerturbDiff 获国际关注。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 投资方 -->
+<section class="section" id="investors" style="background:var(--white);border-top:1px solid var(--line);padding-top:80px;padding-bottom:80px">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Investors · 投资方</span>
+      <h2 class="h-title">顶级机构的持续加注</h2>
+      <p class="lead">2026 年 6 月完成新一轮数亿元战略融资,由上海生物医药创新转化基金、国科投资、达晨财智、星连资本联合领投,高榕资本、指数人工智能产业创新基金跟投 —— 全力支持高通量自动化实验室建设与多元化创新药物管线推进。</p>
+    </div>
+    <div class="logo-wall reveal">
+      <div class="logo-tile"><span class="tier">联合领投</span><span class="wm">上海生物医药<br>创新转化基金</span><span class="wm-en">Shanghai Biopharma Fund</span></div>
+      <div class="logo-tile"><span class="tier">联合领投</span><span class="wm">国科投资</span><span class="wm-en">CAS Investment</span></div>
+      <div class="logo-tile"><span class="tier">联合领投</span><span class="wm">达晨财智</span><span class="wm-en">Fortune Capital</span></div>
+      <div class="logo-tile"><span class="tier">联合领投</span><span class="wm">星连资本</span><span class="wm-en">Starlink Capital</span></div>
+      <div class="logo-tile"><span class="tier" style="background:var(--g100);color:var(--g700)">跟投</span><span class="wm">高榕资本</span><span class="wm-en">Gaorong Capital</span></div>
+      <div class="logo-tile"><span class="tier" style="background:var(--g100);color:var(--g700)">跟投</span><span class="wm">指数人工智能<br>产业创新基金</span><span class="wm-en">Index AI Fund</span></div>
+      <div class="logo-tile"><span class="tier" style="background:var(--paper-2);color:var(--ink-3)">历史轮次</span><span class="wm">Pre-A 轮投资方</span><span class="wm-en">2024.06</span></div>
+      <div class="logo-tile note"><span class="wm">+ 投融资垂询</span><span class="wm-en">bd@biogeom.com</span></div>
+    </div>
+    <p class="small reveal" style="margin-top:18px;text-align:center">资方标识为字标占位,正式上线以各机构官方 Logo 替换 · 战略融资 2026.06</p>
+  </div>
+</section>
+
+<!-- 加入我们 -->
+<section class="section section-dark" id="careers">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Careers</span>
+      <h2 class="h-title">加入我们<br>与定义下一代药物研发的人共事</h2>
+      <p class="lead">在这里,你将与图灵奖得主团队、顶级名校背景的科学家和工程师一起,把最前沿的生成式 AI 变成真实的药物分子。</p>
+    </div>
+    <div class="grid-3" style="margin-bottom:40px">
+      <div class="card-dark reveal">
+        <h3 style="font-size:18px">真实的干湿闭环</h3>
+        <p>你的模型不止停留在论文里 —— 每周都有湿实验数据回流,验证并迭代你的设计。</p>
+      </div>
+      <div class="card-dark reveal reveal-d1">
+        <h3 style="font-size:18px">顶级算力与数据</h3>
+        <p>&gt;100 块 A100、&gt;200 块 4090;800 万+ 蛋白质结构数据与 200 万+ 功能数据。</p>
+      </div>
+      <div class="card-dark reveal reveal-d2">
+        <h3 style="font-size:18px">开放的研究文化</h3>
+        <p>从 TorchDrug 到 La Proteina,我们持续参与全球开源与学术生态。</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="job-item reveal">
+        <div><h4>AI 算法研究员(蛋白质生成模型)</h4><div class="meta">北京 / 上海 · 全职 · 几何深度学习 / 扩散模型方向</div></div>
+        <a href="careers.html#job-algo" class="btn btn-ghost" style="padding:10px 22px;font-size:13.5px">申请 <span class="arr">→</span></a>
+      </div>
+      <div class="job-item reveal reveal-d1">
+        <div><h4>抗体/蛋白工程科学家</h4><div class="meta">上海 · 全职 · 湿实验方向</div></div>
+        <a href="careers.html#job-ab" class="btn btn-ghost" style="padding:10px 22px;font-size:13.5px">申请 <span class="arr">→</span></a>
+      </div>
+      <div class="job-item reveal reveal-d2">
+        <div><h4>全栈工程师(AI 平台)</h4><div class="meta">北京 · 全职 · GeoBiologics 平台方向</div></div>
+        <a href="careers.html#job-fe" class="btn btn-ghost" style="padding:10px 22px;font-size:13.5px">申请 <span class="arr">→</span></a>
+      </div>
+      <div class="job-item reveal reveal-d3">
+        <div><h4>商务拓展经理(BD)</h4><div class="meta">北京 / 上海 · 全职 · 药企合作方向</div></div>
+        <a href="careers.html#job-bd" class="btn btn-ghost" style="padding:10px 22px;font-size:13.5px">申请 <span class="arr">→</span></a>
+      </div>
+    </div>
+    <p style="margin-top:26px;font-size:13.5px;color:rgba(255,255,255,.5)"><a href="careers.html" style="color:var(--t300);font-weight:600">查看完整招聘页与应聘流程 →</a> · 简历与作品集请投递 talent@biogeom.com,邮件注明应聘方向。</p>
+  </div>
+</section>
+
+<!-- 办公地点 -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Locations</span>
+      <h2 class="h-title">北京 · 上海</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card reveal">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></div>
+        <h3>北京总部</h3>
+        <p>北京市海淀区融科资讯中心 A 座 605 室</p>
+      </div>
+      <div class="card reveal reveal-d1">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M9 3h6v6l4 8a2 2 0 0 1-2 3H7a2 2 0 0 1-2-3l4-8V3z"/></svg></div>
+        <h3>上海实验室</h3>
+        <p>上海市浦东新区古恩路 158 号悦丰生命科学园 D 栋</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="cta-band reveal">
+      <div class="cta-inner">
+        <div>
+          <h2>让生成式 AI 解码生命几何</h2>
+          <p>期待与你一起,推动大分子药物研发从筛选走向设计。</p>
+        </div>
+        <div class="actions">
+          <a href="contact.html" class="btn btn-light">联系我们 <span class="arr">→</span></a>
+          <a href="about.html#careers" class="btn btn-outline-light">加入我们</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo/logo-white.png" alt="BioGeometry">
+        <p>生成式 AI 驱动的生物科技公司。以生成式 AI 解码生命几何,推动大分子药物研发从筛选走向设计。</p>
+        <p style="margin-top:14px;font-size:12.5px;color:rgba(255,255,255,.4)">平台入口:<a href="https://prot.design" target="_blank" rel="noopener" style="color:var(--t300)">prot.design</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>技术平台</h4>
+        <a href="technology.html">GeoFlow 基础模型</a>
+        <a href="geoflow-code.html">GeoFlow Code</a>
+        <a href="technology.html#loop">干湿闭环体系</a>
+        <a href="technology.html#infra">数据与算力底座</a>
+        <a href="science.html#reports">技术报告</a>
+        <a href="https://prot.design" target="_blank" rel="noopener">GeoBiologics 平台 ↗</a>
+      </div>
+      <div class="footer-col">
+        <h4>解决方案</h4>
+        <a href="solutions.html#bio">生物医药</a>
+        <a href="solutions.html#synbio">合成生物(GeoEnzyme)</a>
+        <a href="solutions.html#cases">项目验证</a>
+        <a href="pipeline.html">开放合作管线</a>
+        <a href="pipeline.html#models">合作模式</a>
+      </div>
+      <div class="footer-col">
+        <h4>公司与资源</h4>
+        <a href="about.html">关于我们</a>
+        <a href="about.html#investors">投资方</a>
+        <a href="news.html">新闻动态</a>
+        <a href="science.html">科学研究</a>
+        <a href="careers.html">加入我们</a>
+        <a href="contact.html">联系我们</a>
+      </div>
+      <div class="footer-col">
+        <h4>联系方式</h4>
+        <ul class="footer-contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg><span>北京市海淀区融科资讯中心 A 座 605 室</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M9 3h6v6l4 8a2 2 0 0 1-2 3H7a2 2 0 0 1-2-3l4-8V3z"/></svg><span>上海市浦东新区古恩路 158 号悦丰生命科学园 D 栋(实验室)</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>商务合作 bd@biogeom.com<br>媒体垂询 pr@biogeom.com</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 百奥几何 BioGeometry · Beijing · Shanghai</span>
+      <div class="footer-social">
+        <span class="social-ico" title="微信搜索:百奥几何" style="cursor:pointer" aria-label="微信公众号"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.8-.8L3 20.5l1.3-4.2a8.4 8.4 0 1 1 16.7-4.8z"/></svg></span>
+        <a href="https://www.linkedin.com/company/biogeometry" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v5M8 8v.01M12 16v-3a2 2 0 0 1 4 0v3"/></svg></a>
+        <a href="https://x.com/BioGeometry" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l16 16M20 4 4 20"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
