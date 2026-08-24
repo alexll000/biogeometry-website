@@ -642,6 +642,39 @@
   </div>
 </footer>
 
+<!-- 评估报告浮动按钮 -->
+<a href="report.html" target="_blank" class="report-float-btn" title="查看官网评估报告">
+  <span class="report-icon">📋</span>
+  <span class="report-label">评估报告</span>
+</a>
+
+<style>
+.report-float-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #16A079 0%, #0F7A5C 100%);
+  color: #fff;
+  border-radius: 40px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 6px 24px rgba(22,160,121,.35);
+  transition: transform .25s, box-shadow .25s;
+  cursor: pointer;
+}
+.report-float-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 10px 32px rgba(22,160,121,.45);
+}
+.report-icon { font-size: 18px; }
+</style>
+
 <script src="js/main.js"></script>
 </body>
 </html>
