@@ -261,30 +261,30 @@ button{font-family:inherit;border:none;background:none;cursor:pointer}
 
 /* Hero 右上角评估报告入口 */
 .hero-report-card{
-  position:absolute;top:calc(var(--nav-h) + 24px);right:28px;z-index:5;
+  position:absolute;top:calc(var(--nav-h) + 44px);right:calc(max(32px,(100vw - var(--maxw)) / 2));z-index:5;
   display:flex;align-items:center;gap:12px;
   padding:14px 20px 14px 16px;
-  background:rgba(255,255,255,.92);backdrop-filter:blur(16px);
-  border:1.5px solid rgba(22,160,121,.25);border-radius:14px;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(16px);
+  border:1.5px solid rgba(230,126,34,.25);border-radius:14px;
   box-shadow:0 4px 20px rgba(0,0,0,.08);
   text-decoration:none;
   transition:transform .25s,box-shadow .25s,border-color .25s;
 }
 .hero-report-card:hover{
   transform:translateY(-3px);
-  box-shadow:0 8px 28px rgba(22,160,121,.18);
-  border-color:rgba(22,160,121,.5);
+  box-shadow:0 8px 28px rgba(230,126,34,.18);
+  border-color:rgba(230,126,34,.5);
 }
 .hero-report-card .hr-badge{
   position:absolute;top:-8px;right:12px;
   padding:2px 8px;font-size:10px;font-weight:700;letter-spacing:.06em;
-  background:linear-gradient(135deg,#16A079,#0F7A5C);color:#fff;
+  background:linear-gradient(135deg,#E67E22,#D35400);color:#fff;
   border-radius:6px;
 }
 .hero-report-card .hr-icon{
   flex-shrink:0;width:40px;height:40px;
   display:flex;align-items:center;justify-content:center;
-  background:rgba(22,160,121,.08);border-radius:10px;
+  background:rgba(230,126,34,.08);border-radius:10px;
 }
 .hero-report-card .hr-text{display:flex;flex-direction:column;gap:2px}
 .hero-report-card .hr-title{font-size:14px;font-weight:700;color:#1a1a2e}
