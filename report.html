@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>百奥几何官网全面升级方案 | BioGeometry Website Upgrade Proposal</title>
+<style>
+:root{
+  --green:#16A079; --green-2:#9FCB3B; --deep:#04241D; --deep-2:#0A3A30;
+  --teal:#8FE3DC; --gold:#C9A45C;
+  --ink:#12211C; --ink-2:#43554E; --ink-3:#7A8A84;
+  --line:#E2EAE6; --bg:#F6F9F7; --card:#FFFFFF;
+  --grad:linear-gradient(120deg,#16A079,#9FCB3B);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);line-height:1.75;font-size:15.5px}
+.en{font-family:"Sora","Manrope",-apple-system,sans-serif}
+a{color:var(--green);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ── 顶栏 ── */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(4,36,29,.96);backdrop-filter:blur(8px);color:#fff;padding:10px 28px;display:flex;align-items:center;gap:16px;font-size:13px}
+.topbar .tb-logo{font-weight:700;letter-spacing:.02em}
+.topbar .tb-logo em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.topbar .tb-sep{opacity:.35}
+.topbar .tb-nav{display:flex;gap:14px;flex-wrap:wrap;margin-left:auto}
+.topbar .tb-nav a{color:#B9D4CB;font-size:12.5px}
+.topbar .tb-nav a:hover{color:#fff;text-decoration:none}
+
+/* ── 封面 ── */
+.cover{background:var(--deep);color:#fff;padding:96px 28px 80px;position:relative;overflow:hidden}
+.cover::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(720px 380px at 82% 18%,rgba(22,160,121,.28),transparent 62%),
+  radial-gradient(560px 320px at 8% 88%,rgba(159,203,59,.14),transparent 60%)}
+.cover-in{max-width:1080px;margin:0 auto;position:relative}
+.cover .kicker{display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.22em;color:var(--teal);border:1px solid rgba(143,227,220,.35);padding:6px 16px;border-radius:999px;margin-bottom:34px}
+.cover h1{font-size:clamp(34px,5vw,56px);line-height:1.22;font-weight:800;letter-spacing:.01em}
+.cover h1 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover .sub{margin-top:22px;font-size:18px;color:#C4D9D2;max-width:760px}
+.cover .sub-en{margin-top:8px;font-size:13.5px;color:#6E8A81;letter-spacing:.06em}
+/* ── 布局 ── */
+.layout{max-width:1080px;margin:0 auto;padding:0 28px;display:block}
+@media(min-width:1240px){.layout{max-width:1180px}}
+
+/* ── 目录 ── */
+.toc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 34px;margin:-46px auto 0;max-width:1024px;position:relative;box-shadow:0 18px 50px -22px rgba(4,36,29,.28)}
+.toc h2{font-size:13px;letter-spacing:.24em;color:var(--ink-3);margin-bottom:16px}
+.toc ol{list-style:none;columns:2;column-gap:44px}
+@media(max-width:760px){.toc ol{columns:1}}
+.toc li{padding:7px 0;border-bottom:1px dashed var(--line);break-inside:avoid;font-size:14.5px}
+.toc li a{color:var(--ink);display:flex;gap:10px}
+.toc li a:hover{color:var(--green);text-decoration:none}
+.toc .no{color:var(--green);font-weight:700;font-family:"Sora",sans-serif;font-size:12.5px;min-width:26px;padding-top:2px}
+
+/* ── 章节 ── */
+section.chapter{padding:74px 0 8px}
+.ch-head{display:flex;align-items:baseline;gap:20px;margin-bottom:10px}
+.ch-num{font-family:"Sora",sans-serif;font-size:15px;font-weight:700;color:#fff;background:var(--grad);border-radius:10px;padding:5px 12px;letter-spacing:.04em;flex-shrink:0}
+.ch-head h2{font-size:clamp(24px,3vw,32px);font-weight:800;line-height:1.3}
+.ch-lead{color:var(--ink-2);font-size:16px;max-width:880px;margin:6px 0 30px}
+h3.sub{font-size:19px;font-weight:700;margin:40px 0 14px;display:flex;align-items:center;gap:10px}
+h3.sub::before{content:"";width:8px;height:22px;border-radius:4px;background:var(--grad);flex-shrink:0}
+h4.sub2{font-size:16px;font-weight:700;margin:26px 0 8px;color:var(--deep)}
+p{margin:10px 0}
+ul.dash,ol.dash{margin:10px 0 10px 4px;padding-left:20px}
+ul.dash li,ol.dash li{margin:6px 0}
+strong{color:var(--deep)}
+.hl{background:linear-gradient(transparent 62%,rgba(159,203,59,.45) 62%);padding:0 2px;font-weight:600}
+
+/* ── 卡片与网格 ── */
+.grid{display:grid;gap:18px;margin:20px 0}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+.card h4{font-size:15.5px;font-weight:700;margin-bottom:8px}
+.card p,.card li{font-size:14px;color:var(--ink-2)}
+.card.dark{background:var(--deep);border-color:transparent;color:#D5E4DE}
+.card.dark h4{color:#fff}
+.card.dark p{color:#A9C2B9}
+.card.accent{border-top:3px solid var(--green)}
+
+/* ── 表格 ── */
+.tbl-wrap{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:14px;background:#fff}
+table{width:100%;border-collapse:collapse;font-size:13.8px;min-width:760px}
+th{background:var(--deep);color:#fff;text-align:left;padding:11px 14px;font-weight:600;font-size:13px;white-space:nowrap}
+td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+tr:nth-child(even) td{background:#FAFCFB}
+td b{color:var(--ink)}
+td .tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;background:#EAF4EF;color:var(--green);font-weight:700;margin-right:4px;white-space:nowrap}
+td .tag.warn{background:#FBF3E4;color:#B06A00}
+td .tag.bad{background:#FBEAEA;color:#B03A3A}
+
+/* ── 现状→升级 对照块 ── */
+.map-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:0;overflow:hidden;margin:14px 0}
+.map-head{display:flex;align-items:center;gap:12px;padding:14px 22px;background:linear-gradient(90deg,#F2F8F5,#fff);border-bottom:1px solid var(--line)}
+.map-head .mh-no{font-family:"Sora",sans-serif;font-weight:800;font-size:13px;color:#fff;background:var(--deep);border-radius:8px;padding:3px 10px}
+.map-head h4{font-size:16px;font-weight:700}
+.map-head .mh-page{margin-left:auto;font-size:12px;color:var(--ink-3)}
+.map-body{display:grid;grid-template-columns:1fr 44px 1.4fr}
+@media(max-width:820px){.map-body{grid-template-columns:1fr}}
+.map-col{padding:18px 22px}
+.map-col.now{background:#FBFCFC}
+.map-col.now .mc-label{color:#B03A3A}
+.map-col.next .mc-label{color:var(--green)}
+.mc-label{font-size:11.5px;font-weight:800;letter-spacing:.14em;margin-bottom:8px}
+.map-col p,.map-col li{font-size:13.8px;color:var(--ink-2)}
+.map-col ul{padding-left:18px}
+.map-arrow{display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--green);background:#F2F8F5}
+@media(max-width:820px){.map-arrow{transform:rotate(90deg);padding:4px}}
+.map-foot{padding:10px 22px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--ink-3);background:#FAFCFB}
+.map-foot b{color:var(--green)}
+
+/* ── 引用/结论条 ── */
+.callout{border-left:4px solid var(--green);background:#F0F8F4;border-radius:0 12px 12px 0;padding:16px 22px;margin:20px 0;font-size:14.5px}
+.callout.gold{border-color:var(--gold);background:#FBF7EE}
+.callout.dark{background:var(--deep);color:#D5E4DE;border-color:var(--green-2)}
+.callout.dark b{color:#fff}
+
+/* ── 文档框架 ── */
+.fw-map{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin:26px 0}
+.fw-part{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;position:relative;transition:all .3s}
+.fw-part:hover{border-color:rgba(22,160,121,.4);box-shadow:0 10px 30px -14px rgba(4,36,29,.25);transform:translateY(-3px)}
+.fw-part::after{content:"→";position:absolute;right:-19px;top:34px;color:var(--green);font-weight:800;font-size:17px;z-index:2}
+.fw-part:last-child::after{display:none}
+.fw-phase{font-family:"Sora",sans-serif;font-size:11px;letter-spacing:.14em;color:var(--green);font-weight:700}
+.fw-part h4{font-size:17px;margin:7px 0 10px}
+.fw-concl{font-size:12.5px;color:var(--ink-2);background:var(--bg);border-radius:8px;padding:9px 11px;line-height:1.65;margin-bottom:12px}
+.fw-concl b{color:var(--deep)}
+.fw-part ul{list-style:none;font-size:13px}
+.fw-part li{padding:6px 0;border-top:1px dashed var(--line)}
+.fw-part li a{color:var(--ink-2)}
+.fw-part li a:hover{color:var(--green);text-decoration:none}
+.fw-part li .no{color:var(--green);font-weight:700;font-family:"Sora",sans-serif;font-size:11px;margin-right:6px}
+@media(max-width:960px){.fw-map{grid-template-columns:1fr 1fr}.fw-part::after{display:none}}
+@media(max-width:620px){.fw-map{grid-template-columns:1fr}}
+
+/* ── 对标卡片 ── */
+.bm-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:8px}
+.bm-top{display:flex;align-items:center;gap:10px}
+.bm-top .bm-name{font-weight:800;font-size:15px}
+.bm-top .bm-region{font-size:11px;padding:2px 9px;border-radius:99px;background:#EAF4EF;color:var(--green);font-weight:700}
+.bm-top .bm-region.intl{background:#EEF1FB;color:#3D5AA8}
+.bm-top .bm-region.neg{background:#FBEAEA;color:#B03A3A}
+.bm-do{font-size:13.5px;color:var(--ink-2)}
+.bm-do b{color:var(--ink)}
+.bm-take{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);font-size:13px;color:var(--deep)}
+.bm-take::before{content:"借鉴 → ";font-weight:800;color:var(--green)}
+
+/* ── IA 树 ── */
+.ia-tree{background:var(--deep);border-radius:16px;padding:34px;color:#D5E4DE;font-size:13.5px;overflow-x:auto}
+.ia-tree .ia-root{font-weight:800;color:#fff;font-size:15px;margin-bottom:18px}
+.ia-row{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start}
+.ia-l1{flex-shrink:0;width:132px;font-weight:700;color:#fff;background:rgba(22,160,121,.22);border:1px solid rgba(22,160,121,.45);border-radius:10px;padding:8px 12px;font-size:13px}
+.ia-l1 small{display:block;color:#8FE3DC;font-weight:400;font-size:11px;margin-top:2px}
+.ia-l2{display:flex;flex-wrap:wrap;gap:8px;padding-top:4px}
+.ia-l2 span{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:5px 11px;font-size:12.5px;white-space:nowrap}
+.ia-l2 span.ext{border-color:rgba(201,164,92,.55);color:var(--gold)}
+
+/* ── 链路 ── */
+.journey{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:14px 0}
+.journey h4{display:flex;align-items:center;gap:10px;font-size:15.5px;margin-bottom:4px}
+.journey .j-persona{font-size:12px;background:var(--deep);color:#fff;border-radius:99px;padding:3px 12px}
+.journey .j-goal{font-size:13px;color:var(--ink-3);margin-bottom:14px}
+.j-steps{display:flex;flex-wrap:wrap;gap:0;align-items:stretch}
+.j-step{background:#F2F8F5;border:1px solid #DCE9E2;border-radius:10px;padding:9px 13px;font-size:12.8px;color:var(--deep);font-weight:600}
+.j-step small{display:block;font-weight:400;color:var(--ink-3);font-size:11.5px}
+.j-arr{align-self:center;padding:0 7px;color:var(--green);font-weight:800}
+
+/* ── 占位规范 ── */
+.pm-spec{display:inline-block;font-family:"SF Mono",Menlo,monospace;font-size:11.5px;background:#0A3A30;color:#8FE3DC;border-radius:6px;padding:1px 8px;margin-left:6px;white-space:nowrap}
+
+/* ── 脚注 ── */
+.footnote{font-size:12.5px;color:var(--ink-3);border-top:1px solid var(--line);padding-top:10px;margin-top:26px;line-height:1.7}
+
+/* ── 页脚 ── */
+footer.rpt-foot{margin-top:80px;background:var(--deep);color:#8AA79E;padding:40px 28px;font-size:13px}
+.rpt-foot-in{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}
+.rpt-foot b{color:#fff}
+
+@media print{
+  .topbar{display:none}
+  body{background:#fff;font-size:12px}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section.chapter{page-break-inside:avoid;padding:40px 0 0}
+  .toc{box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="tb-logo">百奥几何 <em>BioGeometry</em></span>
+  <span class="tb-sep">|</span>
+  <span>官网全面升级方案 · V3.0</span>
+  <nav class="tb-nav">
+    <a href="#ch1">背景</a><a href="#ch2">现状诊断</a><a href="#ch3">现状→升级</a><a href="#ch4">对标分析</a>
+    <a href="#ch5">叙事策略</a><a href="#ch6">信息架构</a><a href="#ch7">链路设计</a><a href="#ch8">首页方案</a>
+    <a href="#ch9">视觉规范</a><a href="#ch10">路线图</a><a href="#appendix">附录</a>
+  </nav>
+</div>
+
+<!-- ══════════ 封面 ══════════ -->
+<header class="cover">
+  <div class="cover-in">
+    <span class="kicker">WEBSITE UPGRADE PROPOSAL · V3.0</span>
+    <h1>百奥几何官网全面升级方案<br><span class="grad">从「公司展示页」到「行业权威平台」</span></h1>
+    <p class="sub">以 GeoFlow V4 / GeoFlow Code 发布为战略窗口，系统重构官网的信息架构、内容深度、转化链路与视觉语言，使官网成为承载品牌权威性、BD 转化、媒体传播与人才招募的核心资产。</p>
+    <p class="sub-en en">From a corporate brochure to the authoritative platform of generative protein design.</p>
+  </div>
+</header>
+
+<!-- ══════════ 目录 ══════════ -->
+<div class="layout">
+<nav class="toc">
+  <h2>内容概览 AGENDA</h2>
+  <ol>
+    <li><a href="#framework"><span class="no">◇</span>文档结构：四段式决策叙事</a></li>
+    <li><a href="#summary"><span class="no">00</span>执行摘要</a></li>
+    <li><a href="#ch1"><span class="no">01</span>项目背景与升级目标</a></li>
+    <li><a href="#ch2"><span class="no">02</span>现状诊断：biogeom.com 审计</a></li>
+    <li><a href="#ch3"><span class="no">03</span>现状 → 升级：逐区块对照改造说明</a></li>
+    <li><a href="#ch4"><span class="no">04</span>全球竞品官网对标分析</a></li>
+    <li><a href="#ch5"><span class="no">05</span>品牌叙事与内容策略</a></li>
+    <li><a href="#ch6"><span class="no">06</span>信息架构（IA）设计</a></li>
+    <li><a href="#ch7"><span class="no">07</span>受众画像与页面链路设计</a></li>
+    <li><a href="#ch8"><span class="no">08</span>首页展示逻辑：逐屏拆解与理由</a></li>
+    <li><a href="#ch9"><span class="no">09</span>视觉语言与媒体呈现规范</a></li>
+    <li><a href="#ch10"><span class="no">10</span>落地路线图、KPI 与风险控制</a></li>
+    <li><a href="#appendix"><span class="no">A</span>附录：数据来源与口径说明</a></li>
+  </ol>
+</nav>
+
+<!-- ══════════ 文档框架 ══════════ -->
+<section class="chapter" id="framework">
+  <div class="ch-head"><span class="ch-num">◇</span><h2>文档框架：四段式决策叙事</h2></div>
+  <p class="ch-lead">这次官网升级，我们向大家讲清楚四件事 —— <strong>为什么改 → 改成什么样 → 怎么落地 → 怎么衡量</strong>。全部内容按此归入四个部分，每部分只带一个结论，层层递进；时间紧的时候，只讲加粗的结论句。</p>
+  <div class="fw-map">
+    <div class="fw-part">
+      <div class="fw-phase">PART 1 · WHY</div>
+      <h4>诊断与机会</h4>
+      <p class="fw-concl"><b>结论：官网落后公司实力两个身位；V4 发布是史上最大流量窗口。</b></p>
+      <ul>
+        <li><a href="#ch1"><span class="no">01</span>背景与升级目标</a></li>
+        <li><a href="#ch2"><span class="no">02</span>现状诊断 · 8 项问题</a></li>
+        <li><a href="#ch4"><span class="no">04</span>全球对标 · 25+ 站点</a></li>
+      </ul>
+    </div>
+    <div class="fw-part">
+      <div class="fw-phase">PART 2 · WHAT</div>
+      <h4>升级蓝图</h4>
+      <p class="fw-concl"><b>结论：三大叙事主轴 + 一套信息架构，12 屏首页装载全部权威证据。</b></p>
+      <ul>
+        <li><a href="#ch5"><span class="no">05</span>品牌叙事与内容策略</a></li>
+        <li><a href="#ch6"><span class="no">06</span>信息架构 IA</a></li>
+        <li><a href="#ch8"><span class="no">08</span>首页逐屏方案</a></li>
+        <li><a href="#ch9"><span class="no">09</span>视觉语言与媒体规范</a></li>
+      </ul>
+    </div>
+    <div class="fw-part">
+      <div class="fw-phase">PART 3 · HOW</div>
+      <h4>落地路径</h4>
+      <p class="fw-concl"><b>结论：18 项逐区块对照改造 + 4 条受众链路，Demo 即最终呈现。</b></p>
+      <ul>
+        <li><a href="#ch3"><span class="no">03</span>现状 → 升级对照</a></li>
+        <li><a href="#ch7"><span class="no">07</span>受众画像与链路</a></li>
+      </ul>
+    </div>
+    <div class="fw-part">
+      <div class="fw-phase">PART 4 · DELIVER</div>
+      <h4>节奏与保障</h4>
+      <p class="fw-concl"><b>结论：三阶段 90 天落地；KPI、风险与数据口径全部前置定义。</b></p>
+      <ul>
+        <li><a href="#ch10"><span class="no">10</span>路线图 · KPI · 风险</a></li>
+        <li><a href="#appendix"><span class="no">A</span>数据来源与口径附录</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <b>15 分钟阅读动线：</b>执行摘要（2′）→ 本框架（1′）→ Part 1 两个关键判断（3′）→ Part 2 架构与首页方案（4′，可对照 Demo 浏览）→ Part 3 抽 3 个代表性改造项（3′）→ Part 4 决策请求（2′）。时间紧时只讲加粗结论句。
+  </div>
+  <h3 class="sub">需要拍板决策的三件事</h3>
+  <div class="grid g3">
+    <div class="card accent"><h4>① 定方案</h4><p>确认信息架构与首页 12 屏方案：Demo（02-官网Demo）即上线终态呈现，逐屏评审、当场定稿。</p></div>
+    <div class="card accent"><h4>② 定口径</h4><p>确认 V4 性能数据的对外表述口径（70% 基准、命中率、pM 亲和力），附录 A 已给出逐条来源与免责写法。</p></div>
+    <div class="card accent"><h4>③ 定节奏</h4><p>确认三阶段 90 天路线图与责任分工，确保官网与 V4 / GeoFlow Code 发布同频上线。</p></div>
+  </div>
+</section>
+
+<!-- ══════════ 00 执行摘要 ══════════ -->
+<section class="chapter" id="summary">
+  <div class="ch-head"><span class="ch-num">00</span><h2>执行摘要</h2></div>
+  <p class="ch-lead">官网升级的本质，不是「改版面」，而是把百奥几何已经建立的技术领先性，翻译成五类访客（B 端客户 / C 端科研用户 / 媒体 / 投资人 / 行业竞品）都能感知到的权威叙事与可信证据。</p>
+  <div class="grid g2">
+    <div class="card dark">
+      <h4>为什么是现在（Why now）</h4>
+      <p>GeoFlow V4 / GeoFlow Code 将于 2026 年 8 月底发布——公开抗原-抗体结构预测基准合格率约 70%（上一代约 45–50%，市场主流 65–68%）、命中率 20%→30%、亲和力进入 pM 量级、覆盖蛋白/抗体/环肽三模态。这是官网有史以来最大的一次自然流量窗口，也是重构信息架构的最佳时机。</p>
+    </div>
+    <div class="card">
+      <h4>核心判断（Key verdict）</h4>
+      <p>现有官网是一个「合格的初创公司展示页」，但与百奥几何当前的行业位置（图灵奖得主顾问、NVIDIA 联合研究、Pre-A 顶级机构阵容、平台化产品 prot.design）严重不匹配。<strong>官网已落后于公司实力两个身位。</strong></p>
+    </div>
+  </div>
+  <div class="callout">
+    <b>升级总策略一句话：</b>以「模型代际发布线」为内容主轴（对标 Latent Labs / EvolutionaryScale），以「干湿闭环证据」为信任主轴（对标 Insilico / Nabla），以「prot.design 平台入口」为转化主轴（对标 Tamarind / NeuroSnap），三大主轴汇聚于一个信息架构——让访客在 3 屏之内确认「这家公司是生成式蛋白质设计的第一梯队」。
+  </div>
+  <div class="grid g4">
+    <div class="card accent"><h4>16 个页面</h4><p>Demo 已交付：9 个主页面 + 6 个新闻详情页 + 招聘落地页，每条链路都有真实「最后一跳」</p></div>
+    <div class="card accent"><h4>18 项对照改造</h4><p>第三章逐区块列出「现状 → 升级」映射，每项含问题、动作与对标依据</p></div>
+    <div class="card accent"><h4>25+ 对标站点</h4><p>国际 8 + 国内 9 + 平台 SaaS 3 + 合成生物 9 + 反面教材 4，提炼可复用模式</p></div>
+    <div class="card accent"><h4>3 条主转化链路</h4><p>B 端 BD 线 / 平台注册线 / 媒体传播线 + 1 条发布期脉冲链路</p></div>
+  </div>
+</section>
+
+<!-- ══════════ 01 背景 ══════════ -->
+<section class="chapter" id="ch1">
+  <div class="ch-head"><span class="ch-num">01</span><h2>项目背景与升级目标</h2></div>
+
+  <h3 class="sub">1.1 公司事实基础（本方案全部内容的事实来源）</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th style="width:180px">维度</th><th>事实</th></tr>
+    <tr><td><b>定位</b></td><td>生成式 AI 蛋白质设计公司：以自研 GeoFlow 基础模型为核心，干实验（AI 设计）+ 湿实验（验证）闭环，覆盖生物医药与合成生物两大场景。Slogan「让生成式 AI 设计下一代药物」；品牌理念 <span class="en">Engineering Life with Generative AI</span>。</td></tr>
+    <tr><td><b>模型线</b></td><td>GeoFlow V1（抗原-抗体结构预测超越 AlphaFold3）→ V2（统一预测与生成）→ V3（多步推理，命中率 0.1%→18%）→ <b>V4 / GeoFlow Code（2026.08 发布）</b>：公开基准合格率约 70%，命中率 20%→30%，平均结合率 18.7%→35%，亲和力 nM→pM，覆盖蛋白/抗体/环肽三模态。</td></tr>
+    <tr><td><b>平台与产品</b></td><td>GeoBiologics 在线平台（prot.design，已开放使用）；GeoEnzyme 智能酶工程（合成生物方向，7-ADCA、AA2G、冰片、AKG 等项目）。</td></tr>
+    <tr><td><b>权威资产</b></td><td>创始人唐建（Mila 实验室教授）；科学顾问 Yoshua Bengio（图灵奖得主）；与 NVIDIA 联合发表 La Proteina；PerturbDiff 等；100+ 篇论文，LINE 单篇引用 7000+；ICLR Oral、WWW Test-of-Time。</td></tr>
+    <tr><td><b>资本背书</b></td><td>Pre-A 轮：上海生物医药创新转化基金、国科投资、达晨财智、星连资本联合领投；高榕资本、指数人工智能产业创新基金跟投。</td></tr>
+    <tr><td><b>基础设施</b></td><td>800 万+ 结构数据、200 万+ 功能数据、100+ 张 A100、200+ 张 4090 的算力底座。</td></tr>
+  </table></div>
+
+  <h3 class="sub">1.2 升级的三重驱动</h3>
+  <div class="grid g3">
+    <div class="card"><h4>① 发布窗口驱动</h4><p>V4 是「基石性能 + 概念创新（GeoFlow Code 编程语言）+ 落地验证（pM / 三模态）」三位一体的发布。官网必须成为发布的<strong>第一承接阵地</strong>（公众号 → 官网 → 技术报告 PDF → 平台试用 → BD 线索）。</p></div>
+    <div class="card"><h4>② 公司阶段驱动</h4><p>Pre-A 之后，公司进入「被严肃尽调」阶段：药企 BD、投资机构、媒体在接触前都会先看官网。官网内容的<strong>厚度与口径严谨度</strong>直接影响尽调第一印象。</p></div>
+    <div class="card"><h4>③ 竞争格局驱动</h4><p>2025–2026 国际同行密集发布（Chai-2、Latent-X、JAM-2、ESM3 后续），国内字节 Anew、分子之心等加速。而多个竞品官网处于缺位/停滞状态（详见 4.5），<strong>官网质量本身就是竞争信号</strong>。</p></div>
+  </div>
+
+  <h3 class="sub">1.3 目标受众与官网任务</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>受众</th><th>核心诉求</th><th>官网必须提供的证据</th><th>目标转化动作</th></tr>
+    <tr><td><b>B 端客户</b>（药企 BD / 研发负责人）</td><td>能力是否真实？周期与成功率？合作模式？</td><td>湿实验验证案例数据、管线阶段、合作流程、基准对比</td><td>提交 BD 咨询 / 预约演示</td></tr>
+    <tr><td><b>C 端科研用户</b>（科学家 / 学生）</td><td>平台好不好用？值不值得学？</td><td>prot.design 入口、技术报告、开源项目、文档</td><td>注册使用平台</td></tr>
+    <tr><td><b>媒体记者</b></td><td>这家公司有什么新闻价值？数据引哪句？</td><td>发布稿、可直接引用的关键数字、创始人故事、媒体包</td><td>引用报道 / 联系采访</td></tr>
+    <tr><td><b>投资人</b></td><td>赛道位置、护城河、团队与资本结构</td><td>模型代际领先性、管线价值、投资方阵容、学术权威</td><td>约见 / 持续关注</td></tr>
+    <tr><td><b>行业竞品</b>（不可忽视的读者）</td><td>对方到了哪一步？</td><td>——（官网即战略威慑：披露要精准、口径要严谨、门槛要可见）</td><td>——</td></tr>
+  </table></div>
+
+  <div class="callout gold"><b>升级目标定义：</b>① 权威性感知——3 屏内确认第一梯队地位；② 内容厚度——每个主张都有数据/案例/论文支撑且口径可溯；③ 转化闭环——任一受众 2 次点击内到达其目标动作；④ 长期资产——IA 可承载未来每一代模型发布（V5、V6…）而无需重构。</div>
+</section>
+
+<!-- ══════════ 02 现状诊断 ══════════ -->
+<section class="chapter" id="ch2">
+  <div class="ch-head"><span class="ch-num">02</span><h2>现状诊断：biogeom.com 审计</h2></div>
+  <p class="ch-lead">基于对现行官网的逐页走查。总体结论：<strong>现有官网处于「初创公司展示页」阶段，信息架构、证据密度、转化设计均无法匹配公司当前的行业位置与发布节奏。</strong></p>
+
+  <div class="tbl-wrap"><table>
+    <tr><th style="width:36px">#</th><th style="width:200px">问题</th><th>具体表现</th><th style="width:120px">影响</th><th style="width:90px">严重度</th></tr>
+    <tr><td>1</td><td><b>信息架构扁平</b></td><td>导航仅「首页 / 技术 / 新闻 / 关于」级别，无解决方案、管线、科学研究、招聘独立页面；技术与平台混在一页，模型线与产品线关系不清。</td><td>内容无法生长；B 端找不到决策信息</td><td><span class="tag bad">P0 致命</span></td></tr>
+    <tr><td>2</td><td><b>首屏无证据</b></td><td>Hero 只有理念口号，无性能指标、无权威背书、无明确的下一步动作；访客无法在 10 秒内判断「这家公司强在哪」。</td><td>跳出率高；权威感缺失</td><td><span class="tag bad">P0 致命</span></td></tr>
+    <tr><td>3</td><td><b>证据密度不足</b></td><td>无案例数据（命中率、亲和力、周期）、无管线阶段、无基准对比、无论文列表——所有主张停留在形容词层面。</td><td>B 端无法评估，媒体无料可引</td><td><span class="tag bad">P0 致命</span></td></tr>
+    <tr><td>4</td><td><b>转化路径缺失</b></td><td>prot.design 平台入口未在导航/首屏出现；无分角色联系入口（BD / 媒体 / 招聘）；表单是唯一的「行动」。 </td><td>流量无法沉淀为线索</td><td><span class="tag bad">P0 致命</span></td></tr>
+    <tr><td>5</td><td><b>模型发布无承载位</b></td><td>V1–V3 的代际叙事从未在官网沉淀；V4 发布将至，官网没有「发布页」位置，发布流量无处可去。</td><td>发布势能浪费</td><td><span class="tag bad">P0 致命</span></td></tr>
+    <tr><td>6</td><td><b>新闻陈旧且无法筛选</b></td><td>动态更新滞后、无分类、无媒体垂询入口；给访客「公司不活跃」的误信号。</td><td>信任折损（参照反面教材 4.5）</td><td><span class="tag warn">P1 严重</span></td></tr>
+    <tr><td>7</td><td><b>权威资产闲置</b></td><td>图灵奖得主顾问、NVIDIA 联合研究、顶级投资机构、100+ 论文等背书要素未被组织成「权威叙事」，散落在各处或完全缺失。</td><td>领先性无法被感知</td><td><span class="tag warn">P1 严重</span></td></tr>
+    <tr><td>8</td><td><b>视觉语言陈旧</b></td><td>传统企业站风格，无暗色科技场景、无数据可视化、无动效层次；与「AI 原生的前沿公司」身份不符，也不及国际同行的呈现水准。</td><td>品牌感知落后</td><td><span class="tag warn">P1 严重</span></td></tr>
+  </table></div>
+
+  <div class="callout dark"><b>根本原因：</b>旧官网是在「公司只有故事可讲」的阶段建设的；而今天百奥几何已经有了<b>数据、案例、管线、平台、资本、学术</b>六类硬资产——官网必须从「讲故事」升级为「呈证据」，从「展示页」升级为「证据化的权威平台」。</div>
+</section>
+
+<!-- ══════════ 03 现状→升级 ══════════ -->
+<section class="chapter" id="ch3">
+  <div class="ch-head"><span class="ch-num">03</span><h2>现状 → 升级：逐区块对照改造说明</h2></div>
+  <p class="ch-lead">本章是全报告的施工蓝本：对现行官网的每一处导航、首屏、区块与页面，给出「现状问题 → 升级动作 → 依据来源 → Demo 对应位置」的完整映射。共 18 项，按 P0（发布前必须）/ P1（发布后 30 天）分级。</p>
+
+  <h3 class="sub">3.1 全局层：导航 / 公告 / 页脚</h3>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M01</span><h4>主导航</h4><span class="mh-page">全局 · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>4 项平铺导航（首页/技术/新闻/关于），无下拉、无描述，页面承载力封顶；无平台入口、无行动按钮。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><ul>
+        <li><b>6 项一级导航</b>：技术平台 / 解决方案 / 管线与合作 / 科学研究 / 新闻动态 / 关于我们</li>
+        <li>4 项带<b>下拉面板</b>（每项含 3–4 个子入口 + 一句话描述），访客悬停即见全站内容地图</li>
+        <li>右侧常驻 CTA「<b>体验 GeoFlow</b>」→ prot.design，平台入口提升为一级行动</li>
+        <li>预留 中/EN 切换位</li></ul></div>
+    </div>
+    <div class="map-foot">依据：Latent Labs 模型线导航、Tamarind 场景化下拉、Insilico 产品家族导航 ｜ <b>Demo：全部页面顶部</b></div>
+  </div>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M02</span><h4>发布公告条（新增）</h4><span class="mh-page">全局 · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>无。模型发布等重大事件在官网没有任何「正在发生」的信号。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><p>导航上方新增全站公告条：「NEW · 2026.08 ｜ GeoFlow V4 发布：GeoFlow Code 蛋白质设计编程语言 → 查看详情」。发布期全站引流到发布页，日常可替换为招聘/会议/论文喜报，<b>可开关</b>。</p></div>
+    </div>
+    <div class="map-foot">依据：EvolutionaryScale / Chai 发布期顶部横幅 ｜ <b>Demo：所有页面 .announce</b></div>
+  </div>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M03</span><h4>页脚</h4><span class="mh-page">全局 · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>简单链接列 + 备案号，无信息分层，无平台与资源入口。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><p>四列结构：<b>平台</b>（GeoFlow / GeoFlow Code / prot.design 外链 / GeoEnzyme）· <b>解决方案</b> · <b>公司与资源</b>（管线 / 科学研究 / 投资方 / 新闻 / 招聘）· <b>联系</b>（BD / 媒体 / 招聘邮箱 + 地址）。底部 ICP 备案占位 + 中英文品牌理念。</p></div>
+    </div>
+    <div class="map-foot">依据：XtalPi / Generate 页脚信息密度 ｜ <b>Demo：全部页面底部</b></div>
+  </div>
+
+  <h3 class="sub">3.2 首页层：按首屏顺序逐区块</h3>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M04</span><h4>Hero 首屏</h4><span class="mh-page">index.html · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>口号 + 背景图，无数据、无背书、无明确下一步；中英文 slogan 资产未被充分利用。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><ul>
+        <li>主标题：让生成式 AI 设计下一代药物（Slogan 上移为 Hero 主标）</li>
+        <li>副标：Engineering Life with Generative AI + 一句能力定位</li>
+        <li>CGI 蛋白视觉 + <b>3 张浮动数据卡</b>（70% 基准 / pM 亲和力 / ≈3 周周期）——10 秒建立「凭什么」</li>
+        <li>权威行：图灵奖得主顾问 · NVIDIA 联合研究</li>
+        <li>双 CTA：体验 GeoFlow（平台）/ 了解 V4 发布（发布页）</li></ul></div>
+    </div>
+    <div class="map-foot">依据：Chai 极简+巨头背书、Latent-X 发布页数据浮卡 ｜ <b>Demo：index.html 第一屏</b></div>
+  </div>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M05</span><h4>核心指标带（新增）</h4><span class="mh-page">index.html · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>无。公司最关键的量化能力从未出现在官网。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><p>Hero 下方指标带：70% 公开基准合格率 / 30% 靶点命中率 / pM 级亲和力 / 3 类分子模态。<b>必须附口径脚注</b>（测试集、比较对象、以技术报告为准）——严谨性本身就是权威信号。</p></div>
+    </div>
+    <div class="map-foot">依据：EvolutionaryScale 大数字带 + 学术脚注习惯 ｜ <b>Demo：index.html .metric-band</b></div>
+  </div>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M06</span><h4>行业挑战区块（新增）</h4><span class="mh-page">index.html · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>无「问题定义」环节，直接讲自己，访客缺少认知阶梯。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><p>三卡陈述行业痛点：只能做 binder、亲和力/成药性不足、复杂需求无法设计（来自 V4 发布材料），并附行业脚注（AlphaFold3 Nature 2024、Chai-2、Latent-X、JAM-2 等公开进展）——把公司放进行业坐标系，而非自说自话。</p></div>
+    </div>
+    <div class="map-foot">依据：Isomorphic「问题—方法」叙事顺序 ｜ <b>Demo：index.html 01 节</b></div>
+  </div>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M07</span><h4>干湿闭环区块（新增）</h4><span class="mh-page">index.html · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>「干湿结合」只在文字里出现过一次，公司最大的方法论壁垒不可见。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><p>四步闭环图：AI 设计 → 湿实验验证 → 数据回流学习 → 再设计，强调「每一轮实验都在训练下一代模型」。此图是 B 端理解「为什么成功率能持续提升」的关键，后期应升级为交互动效。</p></div>
+    </div>
+    <div class="map-foot">依据：Aureka 飞轮图、Generate 平台闭环 ｜ <b>Demo：index.html 02 节 / technology.html#loop</b></div>
+  </div>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M08</span><h4>GeoFlow Code 发布区块（新增）</h4><span class="mh-page">index.html · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>无发布承载位。V4 这样量级的发布，旧官网没有地方放。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><ul>
+        <li>首页中部暗色发布区：GeoFlow Code 概念 + 5 节点工作流（generate/evaluate/optimize/select/交付）+ 代码面板视觉</li>
+        <li><b>视频媒体 ×2（已上线态呈现）</b>：概念视频海报帧（60–90s 成片规格随代码注释携带）、CLDN6 真实任务录屏界面；发布前按注释规格原位替换</li>
+        <li>CTA 进入独立发布页 geoflow-code.html</li></ul></div>
+    </div>
+    <div class="map-foot">依据：Latent「Launches」发布线 IA；PR 共识：对外避免「Agent」泛化措辞，统一 GeoFlow Code 概念 ｜ <b>Demo：index.html 03 节</b></div>
+  </div>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M09</span><h4>平台入口区块（新增）</h4><span class="mh-page">index.html · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>prot.design 在官网几乎不可见——这是百奥几何相对多数竞品独有的资产（自家可用平台），却被埋没。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><p>暗色分屏大卡：左侧平台价值（在线设计 → 结构预测 → 亲和力评估），右侧<b>平台界面图</b>（浏览器框上线态呈现，后期替换为真实 UI 截图或交互录屏），CTA 直达 prot.design。平台是与 Chai/Latent 竞争的差异化武器，必须一级曝光。</p></div>
+    </div>
+    <div class="map-foot">依据：Tamarind / NeuroSnap 平台前置策略 ｜ <b>Demo：index.html 04 节 .platform-show</b></div>
+  </div>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M10</span><h4>模型代际时间线（新增）</h4><span class="mh-page">index.html · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>V1–V3 的演进历史从未沉淀，访客无法理解「70%」的来之不易，也无法感知迭代速度。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><p>四代时间线：V1 超越 AF3 → V2 统一预测与生成 → V3 多步推理（命中率 0.1%→18%）→ V4 GeoFlow Code。代际叙事 = 「持续领先」的最直观证明，同时为 V5/V6 预留结构。</p></div>
+    </div>
+    <div class="map-foot">依据：EvolutionaryScale ESM1→ESM3 代际叙事 ｜ <b>Demo：index.html 05 节 / geoflow-code.html 四代回顾</b></div>
+  </div>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M11</span><h4>项目验证区块（新增）</h4><span class="mh-page">index.html · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>无任何案例数据。「做过什么、成没成」完全空白，B 端无法建立信任。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><p>4 张证据卡：VHH（18.7% 命中率 / 2nM / 3 周，附<b>真实 SVG 数据图</b>（对数轴散点））、TSLP（33% / 28nM）、PD-L1（0.3nM）、客户引述（3nM / &gt;200×）。每卡含 指标-口径-去向 三层，脱敏呈现（靶点代号化），CTA 进解决方案页。</p></div>
+    </div>
+    <div class="map-foot">依据：Nabla / Chai 技术报告中的案例呈现；脱敏方式参照 Insilico 管线披露惯例 ｜ <b>Demo：index.html 06 节 .evidence-card</b></div>
+  </div>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M12</span><h4>权威背书区块（新增）</h4><span class="mh-page">index.html · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>图灵奖得主、NVIDIA 联合研究、顶级投资方等资产散落或缺失，未形成「权威堆栈」。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><p>背书带：Bengio（图灵奖）/ NVIDIA La Proteina 联合研究 / 100+ 论文·LINE 引用 7000+ / 800 万+ 数据·300+ GPU；附 Bengio 顾问引言 + <b>实验室场景图</b>（AI 生成品牌调，后期实拍替换——真实感是国际同行官网的信任基线）。</p></div>
+    </div>
+    <div class="map-foot">依据：Chai（投资方背书行）、Generate（创始人权威）｜ <b>Demo：index.html 07 节 .authority-band</b></div>
+  </div>
+
+  <h3 class="sub">3.3 页面层：新增与重构</h3>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M13</span><h4>GeoFlow Code 发布页（全新页面）</h4><span class="mh-page">geoflow-code.html · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>不存在。V4 发布无官网阵地，流量只能去公众号（无法沉淀、无法被检索、外媒无法引用）。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><ul>
+        <li>暗色发布页：四大指标 Hero（70% / 20→30% / nM→pM / 三模态）</li>
+        <li>行业坐标段（Chai-2 / Latent-X / JAM-2 公开坐标 → GeoFlow V4 位置）</li>
+        <li>行业三道坎 → V4 解法；基石性能条形图 + V3→V4 代际对比图（真实 SVG）</li>
+        <li>GeoFlow Code 概念段：算子组装架构图（真实 SVG）+ 编程语言代码面板 + 「为什么是一门语言而不只是又一个智能体」</li>
+        <li>CLDN6 案例四步（调研→对齐→自主设计→自主挑分子）+ campaign.log 终端视觉</li>
+        <li>脚注口径：不构成临床承诺、内部测试口径以技术报告为准</li></ul></div>
+    </div>
+    <div class="map-foot">依据：Latent-X / Chai-2 发布页结构；PR 三支柱（基石/创新/落地）｜ <b>Demo：geoflow-code.html 全页</b></div>
+  </div>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M14</span><h4>技术平台页（全新页面）</h4><span class="mh-page">technology.html · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>旧站「技术」仅一页简述，模型、平台、数据算力混杂，深度读者（竞品/投资人/科学家）无肉可吃。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><p>四板块：① 模型能力四卡（预测/生成/多模态/推理）；② <b>全原子统一建模框架图</b>（真实 SVG，后期由技术报告插图替换）；③ 基准对比表（AF3≈50% / 主流 65–68% / V3 / V4 70%，附口径脚注）；④ 数据与算力底座（800 万+ 结构 / 200 万+ 功能 / A100·4090）+ La Proteina / PerturbDiff 联合研究。</p></div>
+    </div>
+    <div class="map-foot">依据：Nabla 技术报告结构、ESM 模型页 ｜ <b>Demo：technology.html</b></div>
+  </div>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M15</span><h4>解决方案页（全新页面）</h4><span class="mh-page">solutions.html · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>无解决方案概念，B 端访客不知道「可以怎么合作、能做什么分子、流程是什么」。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><ul>
+        <li>四问题卡切入 → 案例 Tabs（VHH 18 项目 / IgG TSLP+CD93 / 环肽 PHD2 0.8μM + PD-L1 表 / 优化 VHH 一轮 + DENV &gt;95%）</li>
+        <li>GeoEnzyme 合成生物段：四步酶工程闭环 + 7-ADCA / AA2G / 冰片 / AKG 项目卡</li>
+        <li><b>合作流程五步</b>：需求评估 → 方案设计 → 计算设计 → 实验验证 → 候选交付（典型周期 2–3 个月）——B 端决策最需要的确定性</li></ul></div>
+    </div>
+    <div class="map-foot">依据：Insilico 服务分层、科迈 Click.mAb 的场景化表达 ｜ <b>Demo：solutions.html</b></div>
+  </div>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M16</span><h4>管线与合作页（全新页面）</h4><span class="mh-page">pipeline.html · P1</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>无管线披露。对投资人与药企 BD 而言，「没有管线页」≈「没有资产」。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><p>12 条管线表（CD93 / FcRn / TL1A / TSLP / CXCR4 / TSHR / MC4R / PD-L1 等 + 未披露项代号化），Hits–Leads–PCC–IND 阶段条可视化；授权脚注（NDA 与脱敏说明、bd@biogeom.com）；三种合作模式卡 + 生态伙伴滚动带。管线页 = BD 资产页。</p></div>
+    </div>
+    <div class="map-foot">依据：Insilico 管线甘特图 + 授权邮箱惯例、Earendil 技术+管线双入口 ｜ <b>Demo：pipeline.html</b></div>
+  </div>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M17</span><h4>科学 / 新闻 / 关于 / 联系（重构与新增区块）</h4><span class="mh-page">science / news / about / contact · P1</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>新闻无分类无媒体入口；关于页无投资方与招聘；无学术成果页；联系页只有裸表单。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><ul>
+        <li><b>科学研究页</b>：技术报告（V4/V3 PDF 载体）+ 学术指标带（100+ 论文 / 7000+ 引用 / ICLR Oral / WWW ToT）+ 论文列表（GeoFlow、GeoDiff、LINE、RotatE…）+ 开源（TorchDrug / La Proteina / PerturbDiff）</li>
+        <li><b>新闻页</b>：分类筛选（模型发布/公司动态/客户案例/研究生态/媒体报道）+ V4 头条 + 媒体垂询入口 + 媒体资料库卡片</li>
+        <li><b>关于页</b>：新增投资方矩阵（4 联合领投 + 2 跟投 + 历史轮次）+ 招聘段（价值观 + 在招岗位）+ 里程碑</li>
+        <li><b>联系页</b>：四角色入口（BD / 媒体 / 招聘 / 平台支持）分流 + 表单 + 地址</li></ul></div>
+    </div>
+    <div class="map-foot">依据：Nabla 双轨联系、EvolutionaryScale 学术资产页、Insilico 新闻室 ｜ <b>Demo：对应 4 个页面</b></div>
+  </div>
+
+  <div class="map-card">
+    <div class="map-head"><span class="mh-no">M18</span><h4>视觉语言系统（全面升级）</h4><span class="mh-page">全局 · P0</span></div>
+    <div class="map-body">
+      <div class="map-col now"><div class="mc-label">现状 CURRENT</div><p>传统企业站风格，无设计系统、无暗色科技场景、无动效，与 AI 原生公司身份不符。</p></div>
+      <div class="map-arrow">→</div>
+      <div class="map-col next"><div class="mc-label">升级 UPGRADE</div><p>品牌绿渐变（#16A079→#9FCB3B，取自 Logo）+ 深绿暗场（#04241D）+ 点缀色（青 #8FE3DC / 金 #C9A45C，取自 V4 CGI）；粒子 Hero、滚动显现、数据计数、玻璃拟态；明（证据）/暗（发布）双场景节奏。详见第 9 章。</p></div>
+    </div>
+    <div class="map-foot">依据：Latent / Chai / EvolutionaryScale 的暗色发布场景 ｜ <b>Demo：css/style.css 设计令牌</b></div>
+  </div>
+
+  <div class="callout"><b>改造优先级汇总：</b>P0（8 月发布前）= M01–M15、M18；P1（发布后 30 天）= M16–M17 深化、英文版、媒体包。Demo 已按 P0 全集交付，可直接作为开发蓝本。</div>
+</section>
+
+<!-- ══════════ 04 对标分析 ══════════ -->
+<section class="chapter" id="ch4">
+  <div class="ch-head"><span class="ch-num">04</span><h2>全球竞品官网对标分析</h2></div>
+  <p class="ch-lead">对 25+ 国内外同行官网的逐站调研（2026 年 7–8 月）。按「国际标杆 / 国内标杆 / 计算平台 SaaS / 合成生物 / 反面教材」五组呈现，每组提炼可直接复用的模式。</p>
+
+  <h3 class="sub">4.1 国际标杆组：模型发布如何做成「事件」</h3>
+  <div class="grid g3">
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">Latent Labs</span><span class="bm-region intl">国际 · 最直接对标</span></div>
+      <p class="bm-do"><b>做法：</b>以「Launches」为一级导航，每次模型发布（Latent-X）都有独立发布页：概念视频 + 核心指标 + 生物学解释 + 试用入口。品牌视觉为暗色 + 分子 CGI，极简但极强。</p>
+      <p class="bm-take">「模型代际发布线」IA——GeoFlow V1→V4 应以同样方式沉淀，发布页是官网最重要的内容资产。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">Chai Discovery</span><span class="bm-region intl">国际</span></div>
+      <p class="bm-do"><b>做法：</b>极致克制：一页讲清模型（Chai-2）+ 技术报告 PDF + 顶级投资方 logo 墙 + 招贤。没有一句废话，权威感来自「克制 + 背书」。</p>
+      <p class="bm-take">技术报告 PDF 作为发布的核心载体；投资方 logo 墙是成本最低的权威组件。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">Nabla Bio</span><span class="bm-region intl">国际</span></div>
+      <p class="bm-do"><b>做法：</b>JAM-2 发布即配完整技术报告；联系方式双轨制（BD 合作 / 平台试用分开引导）；案例数据按「靶点—模态—指标」结构化。</p>
+      <p class="bm-take">双轨联系入口（bd@ / 平台支持分邮箱）；案例卡片的结构化字段设计。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">EvolutionaryScale</span><span class="bm-region intl">国际</span></div>
+      <p class="bm-do"><b>做法：</b>ESM 代际叙事（ESM1→ESM3）+ 大数字带 + 「具体造物」故事（esmGFP 荧光蛋白）+ API/开源/论文的分发漏斗，学术与商业双轮。</p>
+      <p class="bm-take">代际时间线 + 一个「具体的分子故事」比一百个形容词有效；开源项目应上官网上导航。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">Isomorphic Labs</span><span class="bm-region intl">国际</span></div>
+      <p class="bm-do"><b>做法：</b>使命叙事（Solve disease）先行，技术与合作（礼来、诺华）随后；几乎不放细节数据，权威来自格局与伙伴。</p>
+      <p class="bm-take">「问题定义 → 方法论 → 证据」的叙事顺序；合作伙伴 logo 带。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">Generate:Biomedicines</span><span class="bm-region intl">国际</span></div>
+      <p class="bm-do"><b>做法：</b>概念品牌化——注册「Generative Biology®」术语并贯穿全站，把自己定义为品类开创者；管线页按模态分组。</p>
+      <p class="bm-take">概念商标化思路：GeoFlow Code「蛋白质设计编程语言」应以同样力度注册式运营。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">Insilico Medicine 英矽智能</span><span class="bm-region intl">国际/中国</span></div>
+      <p class="bm-do"><b>做法：</b>管线甘特图（靶点 × 阶段）是 BD 核心资产；每个授权合作发新闻稿并留 BD 邮箱；产品家族（PandaOmics 等）独立导航。</p>
+      <p class="bm-take">管线页阶段条 + 授权脚注 + bd@ 邮箱——本方案 M16 的直接蓝本。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">Cradle</span><span class="bm-region intl">国际</span></div>
+      <p class="bm-do"><b>做法：</b>产品化表达：以「蛋白质工程的软件」自居，强调周转时间与实测改善倍数，文案像 SaaS 而非论文。</p>
+      <p class="bm-take">用「周期/倍数」等工程语言翻译生物学结果（本方案案例卡字段即采用）。</p></div>
+  </div>
+
+  <h3 class="sub">4.2 国内标杆组：平台化与转化设计</h3>
+  <div class="grid g3">
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">晶泰科技 XtalPi</span><span class="bm-region">国内</span></div>
+      <p class="bm-do"><b>做法：</b>编号章节（01/02/03）+「AI + 自动化」双引擎叙事，上市公司级信息密度，新闻室运营成熟。</p><p class="bm-take">编号章节提升长页秩序感；新闻室的分类与更新频率机制。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">百图生科 BioMap</span><span class="bm-region">国内</span></div>
+      <p class="bm-do"><b>做法：</b>xTrimo 大模型线为内容主轴，发布会事件化运营，学术榜单成绩前置。</p><p class="bm-take">模型线主轴 + 公开基准成绩前置（与本方案指标带思路一致）。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">分子之心</span><span class="bm-region">国内</span></div>
+      <p class="bm-do"><b>做法：</b>NewOrigin 大模型 + 产业合作案例并置，强调「AI 蛋白质设计的产业落地」。</p><p class="bm-take">案例按「产业方—需求—结果」三段式呈现。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">天鹜科技</span><span class="bm-region">国内</span></div>
+      <p class="bm-do"><b>做法：</b>编号化产品线 + 明显的试用入口，把科研成果转译成可采购的产品。</p><p class="bm-take">产品线编号与试用 CTA 的清晰度。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">科迈生物 Click.mAb</span><span class="bm-region">国内</span></div>
+      <p class="bm-do"><b>做法：</b>明码标价 + 对话式演示，把抗体设计服务做成「看得懂价格的产品」，转化阻力极小。</p><p class="bm-take">合作流程透明化（本方案五步流程）；未来平台可加价格锚点。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">字节 · Anew</span><span class="bm-region">国内</span></div>
+      <p class="bm-do"><b>做法：</b>无公开官网（仅招聘与媒体报道），信息完全缺位。</p><p class="bm-take">大厂竞品的官网空窗期 = 百奥几何抢占「生成式蛋白设计」搜索与心智的窗口期。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">华深智药 / Earendil Labs</span><span class="bm-region">国内</span></div>
+      <p class="bm-do"><b>做法：</b>技术 + 管线双入口的极简站，管线按阶段清晰呈现。</p><p class="bm-take">双入口结构（本方案导航「技术平台 / 管线与合作」同级）。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">Aureka Bio</span><span class="bm-region">国内</span></div>
+      <p class="bm-do"><b>做法：</b>干湿闭环飞轮图是视觉中心，方法论一图讲清。</p><p class="bm-take">闭环飞轮的图形化（本方案 M07）。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">深势科技</span><span class="bm-region">国内 · 相邻</span></div>
+      <p class="bm-do"><b>做法：</b>产品矩阵（Hermite/Bohrium 等）+ 开发者生态运营，文档与社区完善。</p><p class="bm-take">平台文档与开发者内容的长期价值（P2 阶段）。</p></div>
+  </div>
+
+  <h3 class="sub">4.3 计算平台 / SaaS 组：把能力做成可自助消费的产品</h3>
+  <div class="grid g3">
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">Tamarind Bio</span><span class="bm-region intl">平台</span></div>
+      <p class="bm-do"><b>做法：</b>按使用场景组织模型库（「我要设计抗体 / 酶 / binder」），SOC2 与 IP 保护明示，学术免费 + 商业付费双漏斗。</p><p class="bm-take">场景化入口与合规明示——prot.design 页面文案可直接借鉴。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">NeuroSnap</span><span class="bm-region intl">平台</span></div>
+      <p class="bm-do"><b>做法：</b>透明定价表 + FAQ + API 文档全公开，科研用户零门槛上手。</p><p class="bm-take">FAQ 与定价透明是 C 端转化的关键（P2 阶段为 prot.design 补 FAQ）。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">中大唯信 WeComput</span><span class="bm-region">平台</span></div>
+      <p class="bm-do"><b>做法：</b>国产计算平台老牌，工具齐全但叙事弱，品牌感知老旧。</p><p class="bm-take">反面印证：工具多 ≠ 感知强，叙事与视觉决定溢价。</p></div>
+  </div>
+
+  <h3 class="sub">4.4 合成生物竞品组：GeoEnzyme 的参照系</h3>
+  <div class="grid g2">
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">酶赛 / 智峪 / 欣贝莱 / 依诺赞 / 新一产 / 微元合成 / 丽合智造 / 川宁 / 深松</span><span class="bm-region">国内 · 9 家</span></div>
+      <p class="bm-do"><b>综合评述：</b>整体处于「传统制造业官网」阶段：企业简介 + 产品列表 + 新闻，无技术叙事、无数据证据、无平台概念、视觉陈旧。酶工程赛道尚无人讲出「AI 原生」的品牌故事。</p>
+      <p class="bm-take">GeoEnzyme 以「智能酶工程 + 四步闭环 + 项目实绩（7-ADCA / AA2G / 冰片 / AKG）」呈现，即可在该赛道形成代际差的品牌认知——合成生物是百奥几何被低估的第二增长叙事。</p></div>
+    <div class="bm-card"><div class="bm-top"><span class="bm-name">维亚生物 / 科晶生物等</span><span class="bm-region">国内</span></div>
+      <p class="bm-do"><b>综合评述：</b>维亚为 CRO 矩阵式 IA（服务线庞杂），科晶等小型企业官网近似名片站。与百奥几何的「AI 模型 + 平台」模式不构成同一叙事层级。</p>
+      <p class="bm-take">不必在服务广度上跟随，坚持「模型能力」为叙事中心。</p></div>
+  </div>
+
+  <h3 class="sub">4.5 反面教材组：官网失修的代价</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>站点</th><th>现状</th><th>教训</th></tr>
+    <tr><td><b>neoX（星药科技）</b></td><td>域名 404</td><td>官网消失 = 外界默认公司已消亡</td></tr>
+    <tr><td><b>Helixon</b></td><td>长期维护页</td><td>发布停滞的信号被无限放大</td></tr>
+    <tr><td><b>力文所</b></td><td>几乎无内容</td><td>学术团队不做官网 = 放弃公众叙事权</td></tr>
+    <tr><td><b>腾讯 AI Lab（AI for Life Science）</b></td><td>专题域名失效</td><td>大厂项目线撤站，历史内容无法检索</td></tr>
+  </table></div>
+  <div class="callout gold"><b>结论：</b>官网不是一次性项目而是「活体资产」——必须建立<b>月度新闻更新、每代模型发布更新、季度案例更新</b>的运维机制（见第 10 章），否则一次失修就足以折损全部权威建设。</div>
+
+  <h3 class="sub">4.6 对标共性公式与空白机会</h3>
+  <div class="grid g2">
+    <div class="card dark"><h4>一流官网的共性公式</h4><p>代际发布线（事件化）× 证据密度（指标+案例+论文）× 权威堆栈（人+机构+资本）× 明确转化（平台/BD 双轨）× 口径严谨（脚注与免责声明）。五项全占者，国际上不超过 5 家，国内为 0。</p></div>
+    <div class="card accent"><h4>百奥几何的空白机会</h4><p>① 国内尚无「模型发布线」运营的蛋白设计公司；② 唯一拥有「自家可用平台 prot.design」的头部模型公司；③ 合成生物赛道无 AI 原生叙事；④ 字节 Anew 官网缺位期。——五项公式全部落地即可成为国内第一、国际第一梯队的官网。</p></div>
+  </div>
+</section>
+
+<!-- ══════════ 05 叙事策略 ══════════ -->
+<section class="chapter" id="ch5">
+  <div class="ch-head"><span class="ch-num">05</span><h2>品牌叙事与内容策略</h2></div>
+
+  <h3 class="sub">5.1 叙事金字塔</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th style="width:150px">层级</th><th>内容</th><th>官网落点</th></tr>
+    <tr><td><b>Slogan</b></td><td>让生成式 AI 设计下一代药物</td><td>Hero 主标题</td></tr>
+    <tr><td><b>品牌理念</b></td><td>Engineering Life with Generative AI</td><td>Hero 副标 / 页脚</td></tr>
+    <tr><td><b>一句话定位</b></td><td>生成式蛋白质设计的定义者与领先者：自研 GeoFlow 基础模型 + 干湿闭环 + 在线平台</td><td>Hero 辅助文案 / 关于页首段</td></tr>
+    <tr><td><b>三大叙事支柱</b></td><td>① 基石性能（公开基准持续第一）② 概念创新（GeoFlow Code 编程语言）③ 落地验证（湿实验案例与管线）</td><td>首页 03/05/06 节、发布页三幕结构</td></tr>
+    <tr><td><b>证据层</b></td><td>指标、案例、论文、数据算力、投资方、团队</td><td>指标带 / 证据卡 / 科学页 / 权威带</td></tr>
+  </table></div>
+
+  <h3 class="sub">5.2 概念品牌化：GeoFlow 家族命名体系</h3>
+  <p>参照 Generate:Biomedicines 注册「Generative Biology®」的做法，建立并<b>全站一致使用</b>以下命名：</p>
+  <div class="grid g4">
+    <div class="card"><h4>GeoFlow</h4><p>基础模型本体（代际：V1–V4…），学术与性能叙事载体</p></div>
+    <div class="card"><h4>GeoFlow Code</h4><p>蛋白质设计编程语言（V4 提出），创新概念载体。<b>对外避免使用「Agent」泛化措辞</b></p></div>
+    <div class="card"><h4>GeoBiologics</h4><p>在线平台（prot.design），产品化与转化载体</p></div>
+    <div class="card"><h4>GeoEnzyme</h4><p>智能酶工程引擎，合成生物业务载体</p></div>
+  </div>
+
+  <h3 class="sub">5.3 内容原则：科学性、厚度与口径管理</h3>
+  <div class="grid g3">
+    <div class="card"><h4>① 每个主张必有证据</h4><p>拒绝形容词堆砌。任何「领先/最优/首个」必须随附数据、比较对象与出处，否则删除。</p></div>
+    <div class="card"><h4>② 口径脚注制度化</h4><p>所有对外指标统一口径说明（测试集、内部/公开、时间点），页尾附「以技术报告为准」——严谨即权威。</p></div>
+    <div class="card"><h4>③ 合规措辞红线</h4><p>性能数据不构成临床承诺；管线信息脱敏（未披露靶点代号化）；授权信息以 NDA 为前提；不使用「治愈/根治」类表述。</p></div>
+    <div class="card"><h4>④ 晦涩内容双轨表达</h4><p>每个技术概念配「一句话通俗版 + 一张图/一段视频 + 一个技术深链」，让 C 端看得懂、B 端看得深、竞品看得出门槛。</p></div>
+    <div class="card"><h4>⑤ 发布节奏化</h4><p>每代模型 = 一次官网事件（公告条 + 发布页 + 技术报告 + 新闻稿），内容资产随代际累积而非替换。</p></div>
+    <div class="card"><h4>⑥ 中英同源</h4><p>关键页面（首页/发布页/技术/管线）中英双语同口径维护，英文版面向国际 BD 与外媒引用。</p></div>
+  </div>
+</section>
+
+<!-- ══════════ 06 IA ══════════ -->
+<section class="chapter" id="ch6">
+  <div class="ch-head"><span class="ch-num">06</span><h2>信息架构（IA）设计</h2></div>
+  <p class="ch-lead">设计原则：一级导航 ≤6 项；任一内容 3 次点击内可达；模型发布线（GeoFlow Code）与平台入口（prot.design）享有全局曝光；架构可承载 V5/V6 发布而无需重构。</p>
+  <div class="ia-tree">
+    <div class="ia-root">biogeom.com 站点地图（Demo 已实现）</div>
+    <div class="ia-row"><div class="ia-l1">首页<small>index.html</small></div><div class="ia-l2"><span>Hero + 指标带</span><span>行业挑战</span><span>干湿闭环</span><span>GeoFlow Code 发布区</span><span>平台入口</span><span>代际时间线</span><span>项目验证</span><span>权威背书</span><span>新闻</span><span>CTA</span></div></div>
+    <div class="ia-row"><div class="ia-l1">技术平台<small>technology.html</small></div><div class="ia-l2"><span>GeoFlow 基础模型</span><span>GeoFlow Code ↗发布页</span><span>干湿闭环 #loop</span><span>数据与算力 #infra</span><span>基准对比</span></div></div>
+    <div class="ia-row"><div class="ia-l1">解决方案<small>solutions.html</small></div><div class="ia-l2"><span>生物医药 #bio</span><span>项目验证 #cases</span><span>合成生物 GeoEnzyme #synbio</span><span>合作流程 #process</span></div></div>
+    <div class="ia-row"><div class="ia-l1">管线与合作<small>pipeline.html</small></div><div class="ia-l2"><span>12 条管线阶段表</span><span>三种合作模式</span><span>授权与 BD 脚注</span><span>生态伙伴</span></div></div>
+    <div class="ia-row"><div class="ia-l1">科学研究<small>science.html</small></div><div class="ia-l2"><span>技术报告 V4/V3</span><span>学术指标</span><span>论文列表</span><span>开源项目</span></div></div>
+    <div class="ia-row"><div class="ia-l1">新闻动态<small>news.html</small></div><div class="ia-l2"><span>分类筛选</span><span>V4 头条</span><span>媒体垂询</span><span>媒体资料库</span></div></div>
+    <div class="ia-row"><div class="ia-l1">关于我们<small>about.html</small></div><div class="ia-l2"><span>公司介绍</span><span>里程碑</span><span>核心团队</span><span>投资方 #investors</span><span>加入我们 #careers</span><span>联系 ↗contact</span></div></div>
+    <div class="ia-row"><div class="ia-l1">发布页<small>geoflow-code.html</small></div><div class="ia-l2"><span>V4 指标 Hero</span><span>行业坐标</span><span>三道坎</span><span>Code 概念</span><span>CLDN6 案例</span><span>四代回顾</span></div></div>
+    <div class="ia-row"><div class="ia-l1">外部平台<small>外链</small></div><div class="ia-l2"><span class="ext">prot.design 体验 GeoFlow（全局 CTA）</span><span class="ext">技术报告 PDF</span><span class="ext">GitHub / TorchDrug</span></div></div>
+  </div>
+
+  <h3 class="sub">6.1 导航设计决策</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>决策点</th><th>选择</th><th>理由</th></tr>
+    <tr><td>「管线」是否单独成项</td><td><b>是</b>（管线与合作）</td><td>Insilico 经验：管线页是 BD 与投资人第一目的地，藏于二级等于没有</td></tr>
+    <tr><td>「科学研究」是否单独成项</td><td><b>是</b></td><td>学术权威是核心差异化；论文/开源/技术报告需要独立承载</td></tr>
+    <tr><td>GeoFlow Code 的位置</td><td>技术平台下拉 + 首页发布区 + 公告条<b>三处曝光</b></td><td>发布期核心资产，单一入口不足以承接全站流量</td></tr>
+    <tr><td>平台入口形式</td><td>导航常驻按钮「体验 GeoFlow」</td><td>Tamarind/NeuroSnap 验证：平台 CTA 必须一级曝光</td></tr>
+    <tr><td>招聘的位置</td><td>关于我们下拉 + 关于页内区块</td><td>Chai 式一级「Careers」适合纯美国市场；国内 B 端优先，招聘居二级</td></tr>
+  </table></div>
+
+  <h3 class="sub">6.2 导航条结构解析：每一个位置都有理由</h3>
+  <p>导航条是全站唯一的「常驻界面元素」，它的结构本身就是一套叙事：<b>左边回答「你是谁」，中间回答「我能看什么」，右边回答「我现在能做什么」</b>。</p>
+  <div class="tbl-wrap"><table>
+    <tr><th style="width:200px">结构（从左到右）</th><th>内容</th><th>为什么这样设计</th></tr>
+    <tr><td><b>公告条（最顶层）</b></td><td>「NEW · 2026.08 GeoFlow V4」+ 发布详情链接</td><td>发布期脉冲入口：全站任何页面进入都能被导流到 V4 发布页；发布期后可关闭，导航回归常态</td></tr>
+    <tr><td><b>① 品牌区（左）</b></td><td>Logo 字标</td><td>F 型浏览的起点永远是左上；点击回首页是全球用户的肌肉记忆</td></tr>
+    <tr><td><b>② 主导航（中）</b></td><td>技术平台 ▾ / 解决方案 ▾ / 管线与合作 / 科学研究 / 新闻动态 / 关于我们 ▾</td><td>按<b>访客意图顺序</b>排列：了解技术 → 找业务合作 → 验证信任 → 了解公司，即「认知 → 信任 → 行动」的采购决策动线；6 项守住了认知负荷上限（7±2），「管线」与「科学研究」单独成项的理由见 6.1</td></tr>
+    <tr><td><b>③ 语言切换（右）</b></td><td>中 / EN</td><td>国际化信号本身就是权威感；置于 CTA 左侧是因为使用频次低于主行动</td></tr>
+    <tr><td><b>④ 主 CTA（最右）</b></td><td>「体验 GeoFlow」实心渐变按钮 → prot.design</td><td>平台注册是官网北极星转化指标，必须全局常驻一级曝光（Tamarind / NeuroSnap 同款验证）；实心按钮与文字链形成视觉权重差，视线终点即行动点</td></tr>
+    <tr><td><b>下拉层</b></td><td>技术平台▾ = 基础模型 / GeoFlow Code / 干湿闭环；关于▾ = 公司介绍 / 投资方 / 加入我们</td><td>二级需求收进下拉：既不突破「一级 ≤6 项」的纪律，又保证 3 次点击内可达；GeoFlow Code 在下拉中排首位并标注「全新发布」</td></tr>
+    <tr><td><b>滚动行为</b></td><td>滚动后导航条毛玻璃化、常驻顶部</td><td>长页滚动中 CTA 始终可达（转化不断线）；毛玻璃保证下方内容可读，克制即权威</td></tr>
+  </table></div>
+  <div class="callout"><b>一句话概括：</b>导航条 = 浓缩的站点地图 + 常驻的转化按钮。访客无需理解全站结构，凭直觉就能完成「认识我们 → 相信我们 → 上手试用」的三级跳。</div>
+</section>
+
+<!-- ══════════ 07 链路设计 ══════════ -->
+<section class="chapter" id="ch7">
+  <div class="ch-head"><span class="ch-num">07</span><h2>受众画像与页面链路设计</h2></div>
+  <p class="ch-lead">链路原则：每类受众从落地页到目标动作 ≤2 次点击；每条链路的终点都是「可沉淀的动作」（留资 / 注册 / 发信），而非页面浏览。</p>
+
+  <div class="journey">
+    <h4><span class="j-persona">链路 A</span>B 端客户（药企 BD / 研发负责人）→ 提交合作咨询</h4>
+    <p class="j-goal">决策问题：能力真实吗？做过我这类靶点吗？怎么合作、什么周期？</p>
+    <div class="j-steps">
+      <div class="j-step">首页 Hero<small>指标浮卡建立第一信任</small></div><span class="j-arr">→</span>
+      <div class="j-step">项目验证区<small>VHH / TSLP / PD-L1 证据卡</small></div><span class="j-arr">→</span>
+      <div class="j-step">解决方案页<small>案例 Tabs + 合作五步流程</small></div><span class="j-arr">→</span>
+      <div class="j-step">管线与合作<small>阶段表 + 合作模式</small></div><span class="j-arr">→</span>
+      <div class="j-step">联系页 BD 入口<small>bd@biogeom.com / 表单</small></div>
+    </div>
+  </div>
+
+  <div class="journey">
+    <h4><span class="j-persona">链路 B</span>C 端科研用户（科学家 / 学生）→ 注册使用平台</h4>
+    <p class="j-goal">决策问题：平台能做什么？有依据吗？上手成本？</p>
+    <div class="j-steps">
+      <div class="j-step">任意页导航 CTA<small>「体验 GeoFlow」常驻</small></div><span class="j-arr">→</span>
+      <div class="j-step">平台展示区<small>功能价值 + 平台界面</small></div><span class="j-arr">→</span>
+      <div class="j-step">prot.design<small>注册即用（外部平台）</small></div>
+    </div>
+    <p class="j-goal" style="margin-top:10px">辅助链路：科学研究页 → 技术报告 PDF / 开源项目 → 建立学术信任 → 回流平台。</p>
+  </div>
+
+  <div class="journey">
+    <h4><span class="j-persona">链路 C</span>媒体 / 投资人 → 引用报道 / 约见</h4>
+    <p class="j-goal">决策问题：新闻价值在哪？关键数字引哪句？公司什么背景？</p>
+    <div class="j-steps">
+      <div class="j-step">公告条 / 新闻页<small>V4 头条 + 分类筛选</small></div><span class="j-arr">→</span>
+      <div class="j-step">GeoFlow Code 发布页<small>可引用指标 + 口径脚注</small></div><span class="j-arr">→</span>
+      <div class="j-step">关于页<small>团队 + 投资方矩阵</small></div><span class="j-arr">→</span>
+      <div class="j-step">媒体垂询 / IR 入口<small>pr@ / bd@ + 媒体包</small></div>
+    </div>
+  </div>
+
+  <div class="journey">
+    <h4><span class="j-persona">链路 D · 发布期</span>发布脉冲链路（2026.08 底，2 周窗口）</h4>
+    <p class="j-goal">公众号/媒体/社群的外部流量如何全量承接并转化。</p>
+    <div class="j-steps">
+      <div class="j-step">外部触达<small>公众号推文 / 媒体报道 / 视频</small></div><span class="j-arr">→</span>
+      <div class="j-step">官网公告条<small>全站顶部 NEW 条</small></div><span class="j-arr">→</span>
+      <div class="j-step">geoflow-code.html<small>发布页：指标 + 概念 + 案例</small></div><span class="j-arr">→</span>
+      <div class="j-step">三分流<small>技术报告 PDF / prot.design 试用 / BD 咨询</small></div>
+    </div>
+  </div>
+
+  <div class="callout"><b>链路健康度检查（上线后每月）：</b>各链路终点的转化率（BD 表单提交数 / 平台注册数 / 媒体来信数）；任一步骤跳出率 &gt;60% 即触发该环节的文案或媒体优化。</div>
+</section>
+
+<!-- ══════════ 08 首页逐屏方案 ══════════ -->
+<section class="chapter" id="ch8">
+  <div class="ch-head"><span class="ch-num">08</span><h2>首页展示逻辑：逐屏拆解与设计理由</h2></div>
+  <p class="ch-lead">关于首页，大家最常问两个问题——「首页为什么这么长？」「为什么有些内容和子页面重复？」本章一次讲透：首页不是一篇被「读完」的文章，而是一张被「扫读 + 跳入」的全站微缩地图，并逐屏给出「展示什么、为什么、通向哪里」。</p>
+
+  <h3 class="sub">8.1 首页的角色：微缩地图与信任漏斗</h3>
+  <div class="grid g2">
+    <div class="card">
+      <h4>为什么允许「长」？—— 因为滚动比点击便宜</h4>
+      <p>可用性研究的基本结论：每多一次点击，流失约一半访客；而滚动几乎零成本。首页把九类访客最关心的问题（技术牛不牛 / 做过没有 / 谁背书 / 怎么合作 / 还在不在活跃）按优先级纵向铺开，<strong>每屏只回答一个问题，并给出一个跳入深页的出口</strong>。访客不需要读完全部 12 屏——他在自己关心的那一屏停下来，点进去，首页的任务就完成了。</p>
+    </div>
+    <div class="card">
+      <h4>为什么和子页「重复」？—— 金字塔原理的摘要层</h4>
+      <p>首页与子页的关系是「摘要与正文」：首页用 3 行字讲干湿闭环，技术页用一整页证明它；首页放 1 张基准图，科学页放完整报告。<strong>重复的不是内容，是路标</strong>——这正是 Google、Insilico 等大站通用的轮毂式（Hub-and-Spoke）内容模型：首页是毂，子页是辐，毂上必须有每一根辐的入口，否则那一类访客就流失了。</p>
+    </div>
+  </div>
+  <div class="callout"><b>信任漏斗总逻辑：</b>先给结论（证据前置）→ 再给方法（闭环可信）→ 再给创新（Code 制高点）→ 再给证据（案例与背书）→ 最后给出口（每 2–3 屏一个 CTA）。明暗场景交替控制阅读节奏，12 屏是上限而非常态——发布期后可根据数据收缩到 8–9 屏。</div>
+
+  <h3 class="sub">8.2 逐屏拆解：每一屏「展示什么 · 为什么在这里 · 通向哪里」</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th style="width:44px">屏序</th><th style="width:150px">区块</th><th style="width:300px">展示什么</th><th>为什么放在这里</th><th style="width:130px">去向</th></tr>
+    <tr><td><b>00</b></td><td>公告条</td><td>「NEW · GeoFlow V4 发布」一句话 + 链接</td><td>F 型浏览的起点；发布期全站流量必须第一眼被导入发布资产</td><td>发布页</td></tr>
+    <tr><td><b>01</b></td><td>Hero</td><td>Slogan「以生成式 AI 解码生命几何」+ 双 CTA + 3 张最强指标浮卡（70% / pM / ≈3周）</td><td>3 秒回答「你是谁、凭什么牛」；首屏决定跳出率，最强证据必须零滚动可见</td><td>prot.design / 发布页</td></tr>
+    <tr><td><b>02</b></td><td>指标带</td><td>70% / 30% / pM / 三模态 + 口径脚注</td><td>证据前置：先给数字再给故事——数字是阅读成本最低的权威</td><td>技术页基准表</td></tr>
+    <tr><td><b>03</b></td><td>行业挑战</td><td>复杂靶点 / 表位可及性 / 药物模态 三大趋势</td><td>从「我有什么」转向「你痛什么」：先与访客的行业焦虑对齐，Code 的出现才有语境</td><td>发布页「三道坎」</td></tr>
+    <tr><td><b>04</b></td><td>干湿闭环</td><td>设计→验证→学习→再设计 四步方法论</td><td>AI 公司最缺的是「凭什么信你」；闭环 = 可验证性，是全部信任的地基</td><td>技术页 #loop</td></tr>
+    <tr><td><b>05</b></td><td>GeoFlow Code 发布区（暗）</td><td>Slogan「让复杂的蛋白质设计，变成可执行的过程」+ 概念视频 + 录屏 + 5 节点工作流 + 代码面板</td><td>全站信息最高点用暗场聚焦；新品必须放在信任铺垫（02–04 屏）之后——先信公司，再看新品</td><td>发布页</td></tr>
+    <tr><td><b>06</b></td><td>平台展示（暗）</td><td>prot.design 价值陈述 + 界面 + CTA</td><td>情绪最高点给转化出口：看完故事立刻能上手，转化不断线</td><td>prot.design</td></tr>
+    <tr><td><b>07</b></td><td>模型代际时间线</td><td>V1→V4 每年一代的演进</td><td>「持续进化」是比单点性能更强的权威信号——证明的是组织能力而非运气</td><td>发布页四代回顾</td></tr>
+    <tr><td><b>08</b></td><td>项目验证</td><td>VHH / TSLP / PD-L1 / 客户引述 四证据卡</td><td>从「我能」到「我做过」：B 端只为结果付费，案例是 BD 决策的第一证据</td><td>解决方案 #cases</td></tr>
+    <tr><td><b>09</b></td><td>权威背书</td><td>Bengio / NVIDIA / 顶刊论文 / 数据算力</td><td>自夸之后必须有他证：第三方信任状放在自述证据之后，形成交叉验证</td><td>科学页 / 关于页</td></tr>
+    <tr><td><b>10</b></td><td>新闻动态</td><td>最新 3 条动态</td><td>回答「这家公司还活着、还在动」——新鲜度本身就是信任的组成部分</td><td>新闻页</td></tr>
+    <tr><td><b>11</b></td><td>CTA 带 + 页脚</td><td>「让生成式 AI 解码生命几何」+ 全站索引页脚</td><td>所有旅程的兜底出口；页脚服务目的明确的访客（找联系方式、找岗位、找投资方）</td><td>联系页 / prot.design</td></tr>
+  </table></div>
+
+  <h3 class="sub">8.3 节奏纪律：长而不累的三条硬规则</h3>
+  <div class="grid g3">
+    <div class="card accent"><h4>一屏一事</h4><p>每屏只回答一个问题，标题即结论；任何一屏不得同时承担两个信息任务——这是「长而不乱」的关键。</p></div>
+    <div class="card accent"><h4>明暗交替</h4><p>浅底（阅读）与暗场（聚焦）交替出现：05–06 屏的暗色发布区既是内容高点，也是视觉节奏的重启。</p></div>
+    <div class="card accent"><h4>出口密度</h4><p>每 2–3 屏必有一个明确的跳转出口（按钮或箭头链），访客在任何一屏停下来都能继续深入——首页从不把人读到底。</p></div>
+  </div>
+
+  <h3 class="sub">8.4 链接逻辑：同向是设计，落点必须不同</h3>
+  <p class="lead" style="margin-bottom:26px">全站审计后，我们把「多个入口指向同一页面」分成两类：<b>刻意的转化设计</b>与<b>必须修正的偷懒</b>。判断标准只有一条——同一个页面目标，不同入口必须落到不同位置（锚点）或承担不同角色；完全同向同点、且无任何角色差异的，就是偷懒。</p>
+  <div class="grid g2" style="margin-bottom:28px">
+    <div class="card accent">
+      <h4>刻意同向（保留，共三类）</h4>
+      <p>① <b>常驻北极星 CTA</b>：导航「体验 GeoFlow」与各页情境按钮同指 prot.design——访客在任何页面、任何滚动深度都能一键到达转化终点，这是 SaaS 官网通行做法；② <b>页脚站点地图</b>：页脚重复导航全部条目，是「最后一屏的目录」，全球官网惯例；③ <b>发布期公告条</b>：全站顶部横幅同指 GeoFlow Code 专题页，是 V4 发布窗口的脉冲式引流，发布期结束后一键撤下。</p>
+    </div>
+    <div class="card accent">
+      <h4>同向不同点（本次修正原则）</h4>
+      <p>指向同一页面的多个入口，必须各自带锚点、落到该页与入口语义对应的位置：新闻卡→对应新闻条目；案例卡→对应案例区；岗位「申请」→该岗位的投递动作。访客每点一次，都觉得「这一步带我到了更具体的地方」——信任感就是这样累积的。</p>
+    </div>
+  </div>
+  <table class="tbl">
+    <thead><tr><th style="width:22%">入口</th><th style="width:26%">修正前</th><th style="width:30%">修正后（落点）</th><th>为什么</th></tr></thead>
+    <tbody>
+      <tr><td>首页 3 张新闻卡</td><td>均 → 新闻页顶部</td><td>→ 对应新闻条目锚点（融资 / 诺唯赞案例 / 发布专题）</td><td>点哪条新闻，到哪条新闻</td></tr>
+      <tr><td>新闻页 6 条列表</td><td>死链（#）</td><td>→ 6 个独立新闻详情页（参照现行官网真实新闻补全正文）</td><td>上线终态不允许死链；每条新闻都有自己的落地页</td></tr>
+      <tr><td>V3 / V4 技术报告卡</td><td>同一 URL</td><td>V4 → /report；V3 → /report/v3（存档）</td><td>两代报告是两个文档，同址即错误</td></tr>
+      <tr><td>4 个岗位「申请」</td><td>均 → 联系页</td><td>→ 招聘落地页 careers.html 对应 JD 锚点（含完整职责/要求/投递）</td><td>申请动作直达完整职位详情，一键投递注明方向</td></tr>
+      <tr><td>解决方案 ↔ 管线互链</td><td>互指对方首页</td><td>→ 开放管线区 / 合作流程区锚点</td><td>跨页跳转必须落在相关区块</td></tr>
+      <tr><td>页脚社媒图标 ×9 页</td><td>死链（#）</td><td>LinkedIn / X 出链官方账号；微信悬停提示公众号名</td><td>微信无网页地址，悬停提示是行业标准做法</td></tr>
+    </tbody>
+  </table>
+  <div class="callout"><b>一句话回答「为什么好多地方指向同一个页面」:</b>指向同一个<em>目标</em>是刻意的——全站只有一个北极星转化（体验 GeoFlow）和一个发布焦点（V4 专题）;但指向同一个<em>位置</em>是不允许的——本次审计后，每个入口都有自己的落点。</div>
+</section>
+
+<!-- ══════════ 09 视觉规范 ══════════ -->
+<section class="chapter" id="ch9">
+  <div class="ch-head"><span class="ch-num">09</span><h2>视觉语言与媒体呈现规范</h2></div>
+
+  <h3 class="sub">9.1 设计令牌（Demo 已实现，详见《视觉设计规范 VI V1.0》）</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>令牌</th><th>值</th><th>用途</th></tr>
+    <tr><td>品牌绿渐变</td><td>#16A079 → #9FCB3B</td><td>主 CTA、强调、数据高亮（取自 Logo）</td></tr>
+    <tr><td>深绿暗场</td><td>#04241D / #0A3A30</td><td>发布区、平台区、发布页全页（科技感场景）</td></tr>
+    <tr><td>辅助青 / 金</td><td>#8FE3DC / #C9A45C</td><td>暗场上的标签与点缀（取自 V4 CGI 参考）</td></tr>
+    <tr><td>字体</td><td>Sora / Manrope（西文）+ PingFang SC（中文）</td><td>数字与英文用几何无衬线强化科技感</td></tr>
+    <tr><td>质感</td><td>玻璃拟态卡片、细描边、软阴影、粒子画布</td><td>Hero 粒子网络（鼠标交互）已交付</td></tr>
+    <tr><td>动效</td><td>滚动显现 / 数字计数 / 悬浮微动 / 发布页时间线</td><td>克制使用，服务内容节奏</td></tr>
+  </table></div>
+  <p>全套色板、字号阶梯、图标语言、组件形态与间距节奏已固化为独立规范文档 —— <b>《03-设计规范/百奥几何官网视觉设计规范.html》（VI V1.0）</b>，与 Demo 的 style.css 变量一一对应，是后续设计、开发与内容上线的唯一权威依据。</p>
+
+  <h3 class="sub">9.2 媒体呈现规范（上线终态 · V3 起执行）</h3>
+  <p><strong>自 V3 起，Demo 全站不再出现任何「占位框」</strong>——页面即拍案稿。暂缺素材一律以 AI 生成图或真实 SVG 图表呈现为最终形态，后期生产规格以 HTML 注释（<code>&lt;!-- 生产规格(后期执行):… --&gt;</code>）随代码携带，视觉层零痕迹。五类媒体的呈现与替换规范如下：</p>
+  <div class="tbl-wrap"><table>
+    <tr><th style="width:110px">类型</th><th>当前呈现（已上线态）</th><th>后期替换规格</th></tr>
+    <tr><td><span class="tag" style="background:#F0EAFB;color:#7A3FF0">VIDEO</span></td><td>海报图 + 玻璃播放键 + 时长角标（.media-video），等同嵌入视频</td><td>16:9，60–90s，参考 Latent-X 发布片调性；中英双语字幕</td></tr>
+    <tr><td><span class="tag" style="background:#EAF4F8;color:#0B7FA8">CHART</span></td><td>手写真实 SVG 图表（对数轴散点、代际对比条），口径脚注随图</td><td>技术报告终稿图表产出后等比替换，保持品牌色系</td></tr>
+    <tr><td><span class="tag" style="background:#FBF3E4;color:#B06A00">SHOT</span></td><td>浏览器框 + 平台界面图（.media-shot），URL 栏为 prot.design</td><td>1920×1200 真实 UI 截图；录屏 1080p，关键操作配字幕</td></tr>
+    <tr><td><span class="tag">DIAGRAM</span></td><td>真实 SVG 架构图（全原子建模框架、算子组装流程）</td><td>研发团队终稿主图替换，浅色/深色双版本</td></tr>
+    <tr><td><span class="tag">PHOTO</span></td><td>AI 生成的实验室/团队场景图（绿色品牌调）</td><td>真实拍摄替换（勿用素材库图），自然光 + 实验场景</td></tr>
+  </table></div>
+  <div class="callout"><b>执行纪律：</b>任何媒体替换上线前须经 ① 科学准确性校对（研发）② 口径与合规审校（PR/法务）③ 视觉一致性检查（设计，对照 VI 规范）三道签字。</div>
+</section>
+
+<!-- ══════════ 10 路线图 ══════════ -->
+<section class="chapter" id="ch10">
+  <div class="ch-head"><span class="ch-num">10</span><h2>落地路线图、KPI 与风险控制</h2></div>
+
+  <h3 class="sub">10.1 三期路线图</h3>
+  <div class="grid g3">
+    <div class="card dark"><h4>P0 · 发布窗口期（即日 — 2026.08 底）</h4><p>首页、GeoFlow Code 发布页、技术平台、解决方案、新闻页上线；公告条开启；技术报告 PDF 上架；「CLDN6 真实录屏 + 平台实拍截图」两项生产素材随发布按注释规格原位替换。</p></div>
+    <div class="card"><h4>P1 · 发布后 30 天</h4><p>管线与合作页、科学研究页、关于/联系页全量上线；概念视频成片替换海报帧；案例图表随技术报告口径更新；媒体包（logo/图库/事实表）上线。</p></div>
+    <div class="card"><h4>P2 · 2026 Q4</h4><p>英文版（首页/发布页/技术/管线优先）；平台 FAQ 与定价锚点；开发者内容（文档/开源教程）；季度案例更新机制固化。</p></div>
+  </div>
+
+  <h3 class="sub">10.2 KPI 体系</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>类别</th><th>指标</th><th>发布期目标（30 天）</th><th>常态目标</th></tr>
+    <tr><td>转化</td><td>BD 咨询提交数 / prot.design 注册来源中官网占比</td><td>≥ 20 条有效 BD 线索</td><td>月均 ≥ 10 条；官网来源注册 ≥ 30%</td></tr>
+    <tr><td>传播</td><td>发布页 PV / 技术报告下载 / 媒体引用次数</td><td>发布页 PV ≥ 5 万；下载 ≥ 2000</td><td>每代模型发布复用该链路</td></tr>
+    <tr><td>参与</td><td>平均停留 / 发布页完读率 / 跳出率</td><td>停留 ≥ 2.5 min；跳出 ≤ 45%</td><td>逐季优化</td></tr>
+    <tr><td>健康度</td><td>新闻月更 / 内容失修项数</td><td>——</td><td>新闻月更 ≥ 2 条；失修项 = 0</td></tr>
+  </table></div>
+
+  <h3 class="sub">10.3 风险与对策</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th style="width:230px">风险</th><th>对策</th></tr>
+    <tr><td><b>数据口径争议</b>（70% 等指标被质疑）</td><td>全站统一口径脚注 + 「以技术报告为准」；技术报告中完整披露测试集与方法；对外文案与报告逐字核对</td></tr>
+    <tr><td><b>措辞合规</b></td><td>性能数据不构成临床承诺；管线脱敏代号化；授权信息以 NDA 为前提；PR/法务双签</td></tr>
+    <tr><td><b>概念稀释</b>（GeoFlow Code 被写成「又一个 Agent」）</td><td>全站禁用「Agent」泛化表述（PR 共识）；统一「蛋白质设计编程语言」概念并注册商标化运营</td></tr>
+    <tr><td><b>生产素材逾期</b>（发布时成片视频/真实录屏未就位）</td><td>当前上线态媒体（海报帧 + 生成界面）本身即为正式设计，可直接发布；素材就位后原位替换，不需改版</td></tr>
+    <tr><td><b>官网失修</b>（参照 4.5 反面教材）</td><td>指定内容负责人；新闻月更机制；每代模型发布 checklist；季度全站走查</td></tr>
+  </table></div>
+</section>
+
+<!-- ══════════ 附录 ══════════ -->
+<section class="chapter" id="appendix">
+  <div class="ch-head"><span class="ch-num">A</span><h2>附录：数据来源与口径说明</h2></div>
+  <div class="tbl-wrap"><table>
+    <tr><th>数据点</th><th>口径</th><th>来源</th></tr>
+    <tr><td>公开基准合格率 ≈70%（V4）/ 45–50%（V3）/ 65–68%（市场）</td><td>公开抗原-抗体结构预测测试集 docking 合格率；内部测试口径，最终以 V4 技术报告为准</td><td>GeoFlow V4 宣发会议材料</td></tr>
+    <tr><td>命中率 20%→30%；平均结合率 18.7%→35%</td><td>内部设计任务统计，具体定义以技术报告为准（35% 待最终确认）</td><td>同上</td></tr>
+    <tr><td>亲和力 nM→pM；覆盖蛋白/抗体/环肽三模态</td><td>部分设计案例达到 pM 级；不构成临床承诺</td><td>同上</td></tr>
+    <tr><td>V3 命中率 0.1%→18%；亲和力 100nM–nM</td><td>V3 代际对比口径</td><td>同上</td></tr>
+    <tr><td>VHH 18.7% / 2nM / ≈3 周；TSLP 33% / 28nM；PD-L1 0.3nM；环肽 PHD2 0.8μM；DENV &gt;95%</td><td>已完成合作项目结果，脱敏呈现</td><td>公司介绍 PDF / 内部案例库</td></tr>
+    <tr><td>100+ 论文；LINE 引用 7000+；ICLR Oral；WWW ToT</td><td>团队累计学术成果</td><td>公司介绍 PDF</td></tr>
+    <tr><td>800 万+ 结构 / 200 万+ 功能数据；100+ A100 / 200+ 4090</td><td>内部基础设施规模</td><td>公司介绍 PDF</td></tr>
+    <tr><td>投资方阵容（Pre-A）</td><td>联合领投 4 家 + 跟投 2 家，以工商与新闻稿为准</td><td>公司介绍 PDF / 公开新闻</td></tr>
+    <tr><td>对标站点信息（25+）</td><td>2026 年 7–8 月公开访问调研，站点后续可能变更</td><td>各公司官网公开内容</td></tr>
+  </table></div>
+  <div class="footnote">本方案为内部方案材料，不构成对外发布文案；所有对外指标发布前须经研发口径确认与 PR/法务合规审校。配套 Demo（02-官网Demo/）即本方案第三、六、七、八章的可交互实现，视觉与媒体呈现按第 9 章及《视觉设计规范 VI》执行。</div>
+</section>
+</div><!-- /.layout -->
+
+<footer class="rpt-foot">
+  <div class="rpt-foot-in">
+    <div><b>百奥几何 BioGeometry</b><br>官网全面升级方案 · V3.0 · 2026.08</div>
+    <div class="en" style="letter-spacing:.08em">ENGINEERING LIFE WITH GENERATIVE AI</div>
+  </div>
+</footer>
+
+</body>
+</html>
