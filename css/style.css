@@ -257,6 +257,12 @@ button{font-family:inherit;border:none;background:none;cursor:pointer}
 .float-1{top:6%;left:-34px;animation-delay:0s}
 .float-2{bottom:14%;right:-26px;animation-delay:2.2s}
 .float-3{bottom:-22px;left:16%;animation-delay:4s}
+.report-float{
+  top:-4%;right:-10%;animation-delay:3s;cursor:pointer;
+  text-decoration:none;display:flex;align-items:center;gap:10px;
+  transition:box-shadow .25s,transform .25s;
+}
+.report-float:hover{box-shadow:0 8px 28px rgba(22,160,121,.18);transform:translateY(-4px)}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 .scroll-hint{
   position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:3;
