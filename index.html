@@ -99,14 +99,20 @@
         <div class="k">≈3 周</div>
         <div class="v">从靶点到经实验验证的<br>候选结合分子</div>
       </div>
-      <!-- 评估报告浮动卡片 -->
-      <a href="report.html" target="_blank" class="float-card report-float">
-        <div class="k" style="font-size:18px;color:#16A079">📋</div>
-        <div class="v" style="font-size:13px;line-height:1.4">点击查看详情<br><b style="color:#16A079">官网评估报告 →</b></div>
-      </a>
     </div>
   </div>
   <div class="scroll-hint"><span>SCROLL</span><span class="bar"></span></div>
+  <!-- 右上角评估报告入口 -->
+  <a href="report.html" target="_blank" class="hero-report-card">
+    <div class="hr-badge">NEW</div>
+    <div class="hr-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16A079" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    </div>
+    <div class="hr-text">
+      <div class="hr-title">官网评估报告</div>
+      <div class="hr-desc">点击查看完整分析 →</div>
+    </div>
+  </a>
 </section>
 
 <!-- ================= 核心指标带 ================= -->
@@ -641,39 +647,6 @@
     </div>
   </div>
 </footer>
-
-<!-- 评估报告浮动按钮 -->
-<a href="report.html" target="_blank" class="report-float-btn" title="查看官网评估报告">
-  <span class="report-icon">📋</span>
-  <span class="report-label">评估报告</span>
-</a>
-
-<style>
-.report-float-btn {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  background: linear-gradient(135deg, #16A079 0%, #0F7A5C 100%);
-  color: #fff;
-  border-radius: 40px;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-  box-shadow: 0 6px 24px rgba(22,160,121,.35);
-  transition: transform .25s, box-shadow .25s;
-  cursor: pointer;
-}
-.report-float-btn:hover {
-  transform: translateY(-3px) scale(1.04);
-  box-shadow: 0 10px 32px rgba(22,160,121,.45);
-}
-.report-icon { font-size: 18px; }
-</style>
 
 <script src="js/main.js"></script>
 </body>
